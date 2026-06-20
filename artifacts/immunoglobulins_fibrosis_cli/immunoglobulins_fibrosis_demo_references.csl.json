@@ -1,0 +1,257 @@
+[
+  {
+    "id": "wynn-2012",
+    "type": "article-journal",
+    "title": "Mechanisms of fibrosis: therapeutic translation for fibrotic disease",
+    "container-title": "Nature Medicine",
+    "container-title-short": "Nat Med",
+    "author": [
+      {
+        "family": "Wynn",
+        "given": "Thomas A."
+      },
+      {
+        "family": "Ramalingam",
+        "given": "Thirumalai R."
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2012,
+          7,
+          6
+        ]
+      ]
+    },
+    "volume": "18",
+    "issue": "7",
+    "page": "1028-1040",
+    "DOI": "10.1038/nm.2807",
+    "PMID": "22772564",
+    "URL": "https://doi.org/10.1038/nm.2807"
+  },
+  {
+    "id": "stone-2012",
+    "type": "article-journal",
+    "title": "IgG4-related disease",
+    "container-title": "The New England Journal of Medicine",
+    "container-title-short": "N Engl J Med",
+    "author": [
+      {
+        "family": "Stone",
+        "given": "John H."
+      },
+      {
+        "family": "Zen",
+        "given": "Yoh"
+      },
+      {
+        "family": "Deshpande",
+        "given": "Vikram"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2012,
+          2,
+          9
+        ]
+      ]
+    },
+    "volume": "366",
+    "issue": "6",
+    "page": "539-551",
+    "DOI": "10.1056/NEJMra1104650",
+    "PMID": "22316447",
+    "URL": "https://doi.org/10.1056/NEJMra1104650"
+  },
+  {
+    "id": "deshpande-2012",
+    "type": "article-journal",
+    "title": "Consensus statement on the pathology of IgG4-related disease",
+    "container-title": "Modern Pathology",
+    "container-title-short": "Mod Pathol",
+    "author": [
+      {
+        "family": "Deshpande",
+        "given": "Vikram"
+      },
+      {
+        "family": "Zen",
+        "given": "Yoh"
+      },
+      {
+        "family": "Chan",
+        "given": "John KC"
+      },
+      {
+        "family": "Yi",
+        "given": "Eunhee E."
+      },
+      {
+        "family": "Sato",
+        "given": "Yasuharu"
+      },
+      {
+        "family": "Yoshino",
+        "given": "Tadashi"
+      },
+      {
+        "family": "Kloppel",
+        "given": "Gunter"
+      },
+      {
+        "family": "Heathcote",
+        "given": "J. Godfrey"
+      },
+      {
+        "family": "Khosroshahi",
+        "given": "Arezou"
+      },
+      {
+        "family": "Ferry",
+        "given": "Judith A."
+      },
+      {
+        "family": "Aalberse",
+        "given": "Rob C."
+      },
+      {
+        "family": "Bloch",
+        "given": "Donald B."
+      },
+      {
+        "family": "Brugge",
+        "given": "William R."
+      },
+      {
+        "family": "Bateman",
+        "given": "Adrian C."
+      },
+      {
+        "family": "Carruthers",
+        "given": "Mollie N."
+      },
+      {
+        "family": "Chari",
+        "given": "Suresh T."
+      },
+      {
+        "family": "Cheuk",
+        "given": "Wah"
+      },
+      {
+        "family": "Cornell",
+        "given": "Lynn D."
+      },
+      {
+        "family": "Fernandez-Del Castillo",
+        "given": "Carlos"
+      },
+      {
+        "family": "Forcione",
+        "given": "David G."
+      },
+      {
+        "family": "Hamilos",
+        "given": "Daniel L."
+      },
+      {
+        "family": "Kamisawa",
+        "given": "Terumi"
+      },
+      {
+        "family": "Kasashima",
+        "given": "Satomi"
+      },
+      {
+        "family": "Kawa",
+        "given": "Shigeyuki"
+      },
+      {
+        "family": "Kawano",
+        "given": "Mitsuhiro"
+      },
+      {
+        "family": "Lauwers",
+        "given": "Gregory Y."
+      },
+      {
+        "family": "Masaki",
+        "given": "Yasufumi"
+      },
+      {
+        "family": "Nakanuma",
+        "given": "Yasuni"
+      },
+      {
+        "family": "Notohara",
+        "given": "Kenji"
+      },
+      {
+        "family": "Okazaki",
+        "given": "Kazuichi"
+      },
+      {
+        "family": "Ryu",
+        "given": "Ji Kon"
+      },
+      {
+        "family": "Saeki",
+        "given": "Takako"
+      },
+      {
+        "family": "Sahani",
+        "given": "Dushyant V."
+      },
+      {
+        "family": "Smyrk",
+        "given": "Thomas C."
+      },
+      {
+        "family": "Stone",
+        "given": "James R."
+      },
+      {
+        "family": "Takahira",
+        "given": "Masayuki"
+      },
+      {
+        "family": "Webster",
+        "given": "George J."
+      },
+      {
+        "family": "Yamamoto",
+        "given": "Motohisa"
+      },
+      {
+        "family": "Zamboni",
+        "given": "Giuseppe"
+      },
+      {
+        "family": "Umehara",
+        "given": "Hisanori"
+      },
+      {
+        "family": "Stone",
+        "given": "John H."
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2012,
+          9
+        ]
+      ]
+    },
+    "volume": "25",
+    "issue": "9",
+    "page": "1181-1192",
+    "DOI": "10.1038/modpathol.2012.72",
+    "PMID": "22596100",
+    "URL": "https://doi.org/10.1038/modpathol.2012.72"
+  }
+]

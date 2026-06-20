@@ -1,0 +1,94 @@
+{
+  "slug": "immunoglobulins_fibrosis_demo",
+  "title": "Immunoglobulins and Fibrosis: Zotero-Active Draft",
+  "subtitle": "Generated Word fields with verified references and embedded CSL metadata",
+  "placeholder_subtitle": "Fallback draft with visible Zotero placeholders",
+  "active_subtitle": "Generated Zotero-active Word fields; validated manually in Word/Zotero",
+  "body_heading": "Draft Introduction",
+  "reference_heading": "References",
+  "output_dir": "artifacts/immunoglobulins_fibrosis_cli",
+  "reference_source": "../artifacts/immunoglobulins_fibrosis_demo/immunoglobulins_fibrosis_zotero_references.csl.json",
+  "zotero_tags": [
+    "CitationTool",
+    "Immunoglobulins fibrosis demo"
+  ],
+  "zotero_note": "<p>Imported by CitationTool from the immunoglobulins/fibrosis project spec.</p>",
+  "placeholders": {
+    "wynn-2012": "[ZOTERO: Wynn 2012]",
+    "stone-2012": "[ZOTERO: Stone 2012]",
+    "deshpande-2012": "[ZOTERO: Deshpande 2012]"
+  },
+  "paragraphs": [
+    [
+      {
+        "text": "Fibrosis is best understood as a persistent wound-healing program in which immune activation, fibroblast activation, and extracellular matrix remodeling fail to resolve "
+      },
+      {
+        "cite": "wynn-2012"
+      },
+      {
+        "text": ". Rather than being a passive scar, fibrotic tissue reflects ongoing crosstalk between inflammatory cells, tissue-resident stromal cells, and matrix-producing myofibroblasts "
+      },
+      {
+        "cite": "wynn-2012"
+      },
+      {
+        "text": "."
+      }
+    ],
+    [
+      {
+        "text": "Within this broader biology, IgG4-related disease provides a useful example of how an immunoglobulin-associated immune response can travel with organ fibrosis. The syndrome is characterized by tumor-like fibroinflammatory lesions across multiple organs, often with dense lymphoplasmacytic infiltrates and increased IgG4-positive plasma cells "
+      },
+      {
+        "cite": "stone-2012"
+      },
+      {
+        "text": "."
+      }
+    ],
+    [
+      {
+        "text": "For a citation workflow, the most important distinction is that pathology claims should be anchored to tissue-based criteria rather than to serum IgG4 alone. Consensus pathology criteria emphasize dense lymphoplasmacytic infiltrate, storiform fibrosis, obliterative phlebitis, and increased IgG4-positive plasma cells in the appropriate clinical context "
+      },
+      {
+        "cite": "deshpande-2012"
+      },
+      {
+        "text": "."
+      }
+    ]
+  ],
+  "claims": [
+    {
+      "claim": "Fibrosis is framed as a persistent wound-healing program involving immune activation, fibroblast activation, and extracellular matrix remodeling.",
+      "support": "wynn-2012",
+      "level": "Supported",
+      "note": "Review article on mechanisms of fibrosis and therapeutic translation; appropriate for broad fibrosis framing."
+    },
+    {
+      "claim": "Fibrotic tissue reflects ongoing crosstalk between inflammatory cells, stromal cells, and matrix-producing myofibroblasts.",
+      "support": "wynn-2012",
+      "level": "Supported",
+      "note": "Used as mechanistic background, not as evidence for an IgG-specific mechanism."
+    },
+    {
+      "claim": "IgG4-related disease is a useful immunoglobulin-associated example of fibroinflammatory organ disease.",
+      "support": "stone-2012",
+      "level": "Supported",
+      "note": "NEJM review describes IgG4-related disease as a fibroinflammatory condition with multi-organ involvement."
+    },
+    {
+      "claim": "The syndrome often includes dense lymphoplasmacytic infiltrates and increased IgG4-positive plasma cells.",
+      "support": "stone-2012",
+      "level": "Supported",
+      "note": "Kept general and tied to the disease overview source."
+    },
+    {
+      "claim": "Diagnostic tissue interpretation emphasizes dense lymphoplasmacytic infiltrate, storiform fibrosis, obliterative phlebitis, and increased IgG4-positive plasma cells.",
+      "support": "deshpande-2012",
+      "level": "Supported",
+      "note": "Directly grounded in the pathology consensus statement."
+    }
+  ]
+}
