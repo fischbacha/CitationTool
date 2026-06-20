@@ -5,7 +5,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from citationtool.verification import verify_project, verify_reference
+from citationtool.verification import parse_pubmed_xml, verify_project, verify_reference
 
 
 def sample_ref(**overrides):
@@ -155,6 +155,40 @@ class VerificationTests(unittest.TestCase):
         self.assertEqual(result["overallStatus"], "passed")
         self.assertEqual(evidence["status"], "needs_llm_review")
         self.assertTrue(evidence["candidateSnippets"])
+
+    def test_pubmed_parser_prefers_journal_issue_year(self):
+        xml = """<?xml version="1.0" ?>
+<PubmedArticleSet>
+  <PubmedArticle>
+    <MedlineCitation>
+      <PMID>1</PMID>
+      <Article>
+        <Journal>
+          <JournalIssue>
+            <PubDate><Year>2014</Year></PubDate>
+          </JournalIssue>
+          <Title>Example Journal</Title>
+        </Journal>
+        <ArticleTitle>Example title</ArticleTitle>
+        <ArticleDate><Year>2013</Year></ArticleDate>
+        <AuthorList>
+          <Author><LastName>Smith</LastName><ForeName>A</ForeName></Author>
+        </AuthorList>
+      </Article>
+    </MedlineCitation>
+    <PubmedData>
+      <ArticleIdList>
+        <ArticleId IdType="pubmed">1</ArticleId>
+        <ArticleId IdType="doi">10.1000/example</ArticleId>
+      </ArticleIdList>
+    </PubmedData>
+  </PubmedArticle>
+</PubmedArticleSet>
+"""
+
+        parsed = parse_pubmed_xml(xml)
+
+        self.assertEqual(parsed["year"], "2014")
 
 
 if __name__ == "__main__":

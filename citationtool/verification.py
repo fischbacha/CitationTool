@@ -232,7 +232,7 @@ def parse_pubmed_xml(body: str) -> dict[str, Any] | None:
         if part:
             abstract_parts.append(part)
 
-    year = xml_text(article.find(".//ArticleDate/Year")) or xml_text(article.find(".//JournalIssue/PubDate/Year"))
+    year = xml_text(article.find(".//JournalIssue/PubDate/Year")) or xml_text(article.find(".//ArticleDate/Year"))
     if not year:
         medline_date = xml_text(article.find(".//JournalIssue/PubDate/MedlineDate"))
         match = re.search(r"\d{4}", medline_date)

@@ -1,0 +1,614 @@
+{
+  "project": "aging_immunoglobulins",
+  "depth": "abstract",
+  "generatedAtUnix": 1781975849,
+  "overallStatus": "passed",
+  "references": [
+    {
+      "id": "blomberg-2013",
+      "status": "verified",
+      "expected": {
+        "doi": "10.1007/s12026-013-8440-9",
+        "pmid": "24203437",
+        "title": "Age effects on mouse and human B cells",
+        "year": "2013",
+        "firstAuthor": "Blomberg"
+      },
+      "sources": {
+        "pubmed": {
+          "source": "PubMed",
+          "pmid": "24203437",
+          "doi": "10.1007/s12026-013-8440-9",
+          "pmcid": "PMC5673119",
+          "title": "Age effects on mouse and human B cells.",
+          "journal": "Immunologic research",
+          "journal_short": "Immunol Res",
+          "year": "2013",
+          "authors": [
+            {
+              "family": "Blomberg",
+              "given": "Bonnie B"
+            },
+            {
+              "family": "Frasca",
+              "given": "Daniela"
+            }
+          ],
+          "abstract": "Our laboratory has contributed to the areas of B cell receptor (BCR) and pre-BCR gene identification and transcription and has focused on the problem of the aged immune system in mice and humans for the last 15 years. We have found biomarkers for the decrease in B cell function in aged mice and humans. These include decreases in immunoglobulin (Ig) class switch (e.g., IgM to IgG), decreases in the enzyme AID (activation-induced cytidine deaminase) and decreases in the transcription factor E47. The E47 mRNA stability is decreased in old B cells due to decreased phospho-MAPKinase and phospho-TTP (tristetraprolin). Inflammation, e.g., TNF-\u03b1, which increases with age, impacts B cells directly by increasing their TNF-\u03b1 and NF-\u03baB and leads to the above decreased pathway. Both class switch and affinity maturation are decreased in elderly responses to the influenza vaccine and biomarkers we have found (numbers and percentages of switched memory B cells and AID in stimulated B cells in culture) can predict a beneficial or decreased immune response to the vaccine. Current and future avenues to improve the humoral immune response in the elderly are discussed.",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/24203437/"
+        },
+        "crossref": {
+          "source": "Crossref",
+          "doi": "10.1007/s12026-013-8440-9",
+          "title": "Age effects on mouse and human B cells",
+          "journal": "Immunologic Research",
+          "journal_short": "Immunologic Research",
+          "year": "2013",
+          "authors": [
+            {
+              "family": "Blomberg",
+              "given": "Bonnie B."
+            },
+            {
+              "family": "Frasca",
+              "given": "Daniela"
+            }
+          ],
+          "abstract": "",
+          "url": "https://doi.org/10.1007/s12026-013-8440-9"
+        }
+      },
+      "bestTitleSimilarity": 1.0,
+      "warnings": [],
+      "problems": [],
+      "notes": []
+    },
+    {
+      "id": "frasca-2016",
+      "status": "verified",
+      "expected": {
+        "doi": "10.1016/j.vaccine.2016.04.023",
+        "pmid": "27108193",
+        "title": "The generation of memory B cells is maintained, but the antibody response is not, in the elderly after repeated influenza immunizations",
+        "year": "2016",
+        "firstAuthor": "Frasca"
+      },
+      "sources": {
+        "pubmed": {
+          "source": "PubMed",
+          "pmid": "27108193",
+          "doi": "10.1016/j.vaccine.2016.04.023",
+          "pmcid": "PMC4876633",
+          "title": "The generation of memory B cells is maintained, but the antibody response is not, in the elderly after repeated influenza immunizations.",
+          "journal": "Vaccine",
+          "journal_short": "Vaccine",
+          "year": "2016",
+          "authors": [
+            {
+              "family": "Frasca",
+              "given": "Daniela"
+            },
+            {
+              "family": "Diaz",
+              "given": "Alain"
+            },
+            {
+              "family": "Romero",
+              "given": "Maria"
+            },
+            {
+              "family": "Blomberg",
+              "given": "Bonnie B"
+            }
+          ],
+          "abstract": "The success of a vaccine in inducing a protective antibody response depends on the longevity of both long-lived plasma cells (PC) and memory B cells. We have previously shown that the in vivo antibody response to a new influenza vaccine, the ex vivo plasmablast response, the in vitro B cell function, measured by AID (activation-induced cytidine deaminase), and the transcription factor E47, are significantly associated and decreased in elderly individuals. We hypothesized that because AID is decreased in the elderly, the ability to generate memory B cells would also be decreased, but our findings here show that memory B cells are maintained in the elderly probably due to further amplification in response to repeated vaccination. We recruited young and elderly individuals immunized in at least two consecutive influenza vaccine seasons in which the influenza A viral strains H1N1 and H3N2 in the vaccine were the same as in the previous year. PBMC were cultured with CpG/IL2 to measure the frequency of IgG vaccine-specific memory B cells. Serum antibody response was measured by hemagglutination inhibition assay. Blood plasmablasts were measured by flow cytometry. Surprisingly, the frequencies of influenza vaccine-specific memory B cells and plasmablasts were similar in young and elderly individuals, but the fold-increase in serum titers after vaccination was lower in the elderly although most of the elderly were seroprotected. We then measured the transcription factor Blimp-1, considered the master regulator of PC differentiation, and found it significantly reduced in cultures of B cells from elderly versus young individuals, as well as E47/AID and IgG secretion. Taken together, these results suggest an impaired memory B cell to PC differentiation in the elderly.",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/27108193/"
+        },
+        "crossref": {
+          "source": "Crossref",
+          "doi": "10.1016/j.vaccine.2016.04.023",
+          "title": "The generation of memory B cells is maintained, but the antibody response is not, in the elderly after repeated influenza immunizations",
+          "journal": "Vaccine",
+          "journal_short": "Vaccine",
+          "year": "2016",
+          "authors": [
+            {
+              "family": "Frasca",
+              "given": "Daniela"
+            },
+            {
+              "family": "Diaz",
+              "given": "Alain"
+            },
+            {
+              "family": "Romero",
+              "given": "Maria"
+            },
+            {
+              "family": "Blomberg",
+              "given": "Bonnie B."
+            }
+          ],
+          "abstract": "",
+          "url": "https://doi.org/10.1016/j.vaccine.2016.04.023"
+        }
+      },
+      "bestTitleSimilarity": 1.0,
+      "warnings": [],
+      "problems": [],
+      "notes": []
+    },
+    {
+      "id": "kristic-2014",
+      "status": "verified",
+      "expected": {
+        "doi": "10.1093/gerona/glt190",
+        "pmid": "24325898",
+        "title": "Glycans are a novel biomarker of chronological and biological ages",
+        "year": "2014",
+        "firstAuthor": "Kri\u0161ti\u0107"
+      },
+      "sources": {
+        "pubmed": {
+          "source": "PubMed",
+          "pmid": "24325898",
+          "doi": "10.1093/gerona/glt190",
+          "pmcid": "PMC4049143",
+          "title": "Glycans are a novel biomarker of chronological and biological ages.",
+          "journal": "The journals of gerontology. Series A, Biological sciences and medical sciences",
+          "journal_short": "J Gerontol A Biol Sci Med Sci",
+          "year": "2014",
+          "authors": [
+            {
+              "family": "Kri\u0161ti\u0107",
+              "given": "Jasminka"
+            },
+            {
+              "family": "Vu\u010dkovi\u0107",
+              "given": "Frano"
+            },
+            {
+              "family": "Menni",
+              "given": "Cristina"
+            },
+            {
+              "family": "Klari\u0107",
+              "given": "Lucija"
+            },
+            {
+              "family": "Keser",
+              "given": "Toma"
+            },
+            {
+              "family": "Beceheli",
+              "given": "Ivona"
+            },
+            {
+              "family": "Pu\u010di\u0107-Bakovi\u0107",
+              "given": "Maja"
+            },
+            {
+              "family": "Novokmet",
+              "given": "Mislav"
+            },
+            {
+              "family": "Mangino",
+              "given": "Massimo"
+            },
+            {
+              "family": "Thaqi",
+              "given": "Kujtim"
+            },
+            {
+              "family": "Rudan",
+              "given": "Pavao"
+            },
+            {
+              "family": "Novokmet",
+              "given": "Natalija"
+            },
+            {
+              "family": "Sarac",
+              "given": "Jelena"
+            },
+            {
+              "family": "Missoni",
+              "given": "Sa\u0161a"
+            },
+            {
+              "family": "Kol\u010di\u0107",
+              "given": "Ivana"
+            },
+            {
+              "family": "Pola\u0161ek",
+              "given": "Ozren"
+            },
+            {
+              "family": "Rudan",
+              "given": "Igor"
+            },
+            {
+              "family": "Campbell",
+              "given": "Harry"
+            },
+            {
+              "family": "Hayward",
+              "given": "Caroline"
+            },
+            {
+              "family": "Aulchenko",
+              "given": "Yurii"
+            },
+            {
+              "family": "Valdes",
+              "given": "Ana"
+            },
+            {
+              "family": "Wilson",
+              "given": "James F"
+            },
+            {
+              "family": "Gornik",
+              "given": "Olga"
+            },
+            {
+              "family": "Primorac",
+              "given": "Dragan"
+            },
+            {
+              "family": "Zoldo\u0161",
+              "given": "Vlatka"
+            },
+            {
+              "family": "Spector",
+              "given": "Tim"
+            },
+            {
+              "family": "Lauc",
+              "given": "Gordan"
+            }
+          ],
+          "abstract": "UNLABELLED: Fine structural details of glycans attached to the conserved N-glycosylation site significantly not only affect function of individual immunoglobulin G (IgG) molecules but also mediate inflammation at the systemic level. By analyzing IgG glycosylation in 5,117 individuals from four European populations, we have revealed very complex patterns of changes in IgG glycosylation with age. Several IgG glycans (including FA2B, FA2G2, and FA2BG2) changed considerably with age and the combination of these three glycans can explain up to 58% of variance in chronological age, significantly more than other markers of biological age like telomere lengths. The remaining variance in these glycans strongly correlated with physiological parameters associated with biological age. Thus, IgG glycosylation appears to be closely linked with both chronological and biological ages. Considering the important role of IgG glycans in inflammation, and because the observed changes with age promote inflammation, changes in IgG glycosylation also seem to represent a factor contributing to aging. SIGNIFICANCE STATEMENT: Glycosylation is the key posttranslational mechanism that regulates function of immunoglobulins, with multiple systemic repercussions to the immune system. Our study of IgG glycosylation in 5,117 individuals from four European populations has revealed very extensive and complex changes in IgG glycosylation with age. The combined index composed of only three glycans explained up to 58% of variance in age, considerably more than other biomarkers of age like telomere lengths. The remaining variance in these glycans strongly correlated with physiological parameters associated with biological age; thus, IgG glycosylation appears to be closely linked with both chronological and biological ages. The ability to measure human biological aging using molecular profiling has practical applications for diverse fields such as disease prevention and treatment, or forensics.",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/24325898/"
+        },
+        "crossref": {
+          "source": "Crossref",
+          "doi": "10.1093/gerona/glt190",
+          "title": "Glycans Are a Novel Biomarker of Chronological and Biological Ages",
+          "journal": "The Journals of Gerontology: Series A",
+          "journal_short": "The Journals of Gerontology: Series A",
+          "year": "2013",
+          "authors": [
+            {
+              "family": "Kri\u0161ti\u0107",
+              "given": "Jasminka"
+            },
+            {
+              "family": "Vu\u010dkovi\u0107",
+              "given": "Frano"
+            },
+            {
+              "family": "Menni",
+              "given": "Cristina"
+            },
+            {
+              "family": "Klari\u0107",
+              "given": "Lucija"
+            },
+            {
+              "family": "Keser",
+              "given": "Toma"
+            },
+            {
+              "family": "Beceheli",
+              "given": "Ivona"
+            },
+            {
+              "family": "Pu\u010di\u0107-Bakovi\u0107",
+              "given": "Maja"
+            },
+            {
+              "family": "Novokmet",
+              "given": "Mislav"
+            },
+            {
+              "family": "Mangino",
+              "given": "Massimo"
+            },
+            {
+              "family": "Thaqi",
+              "given": "Kujtim"
+            },
+            {
+              "family": "Rudan",
+              "given": "Pavao"
+            },
+            {
+              "family": "Novokmet",
+              "given": "Natalija"
+            },
+            {
+              "family": "\u0160arac",
+              "given": "Jelena"
+            },
+            {
+              "family": "Missoni",
+              "given": "Sa\u0161a"
+            },
+            {
+              "family": "Kol\u010di\u0107",
+              "given": "Ivana"
+            },
+            {
+              "family": "Pola\u0161ek",
+              "given": "Ozren"
+            },
+            {
+              "family": "Rudan",
+              "given": "Igor"
+            },
+            {
+              "family": "Campbell",
+              "given": "Harry"
+            },
+            {
+              "family": "Hayward",
+              "given": "Caroline"
+            },
+            {
+              "family": "Aulchenko",
+              "given": "Yurii"
+            },
+            {
+              "family": "Valdes",
+              "given": "Ana"
+            },
+            {
+              "family": "Wilson",
+              "given": "James F."
+            },
+            {
+              "family": "Gornik",
+              "given": "Olga"
+            },
+            {
+              "family": "Primorac",
+              "given": "Dragan"
+            },
+            {
+              "family": "Zoldo\u0161",
+              "given": "Vlatka"
+            },
+            {
+              "family": "Spector",
+              "given": "Tim"
+            },
+            {
+              "family": "Lauc",
+              "given": "Gordan"
+            }
+          ],
+          "abstract": "",
+          "url": "https://doi.org/10.1093/gerona/glt190"
+        }
+      },
+      "bestTitleSimilarity": 1.0,
+      "warnings": [],
+      "problems": [],
+      "notes": []
+    },
+    {
+      "id": "kyle-2006",
+      "status": "verified",
+      "expected": {
+        "doi": "10.1056/nejmoa054494",
+        "pmid": "16571879",
+        "title": "Prevalence of monoclonal gammopathy of undetermined significance",
+        "year": "2006",
+        "firstAuthor": "Kyle"
+      },
+      "sources": {
+        "pubmed": {
+          "source": "PubMed",
+          "pmid": "16571879",
+          "doi": "10.1056/NEJMoa054494",
+          "pmcid": "",
+          "title": "Prevalence of monoclonal gammopathy of undetermined significance.",
+          "journal": "The New England journal of medicine",
+          "journal_short": "N Engl J Med",
+          "year": "2006",
+          "authors": [
+            {
+              "family": "Kyle",
+              "given": "Robert A"
+            },
+            {
+              "family": "Therneau",
+              "given": "Terry M"
+            },
+            {
+              "family": "Rajkumar",
+              "given": "S Vincent"
+            },
+            {
+              "family": "Larson",
+              "given": "Dirk R"
+            },
+            {
+              "family": "Plevak",
+              "given": "Matthew F"
+            },
+            {
+              "family": "Offord",
+              "given": "Janice R"
+            },
+            {
+              "family": "Dispenzieri",
+              "given": "Angela"
+            },
+            {
+              "family": "Katzmann",
+              "given": "Jerry A"
+            },
+            {
+              "family": "Melton",
+              "given": "L Joseph"
+            }
+          ],
+          "abstract": "BACKGROUND: The prevalence of monoclonal gammopathy of undetermined significance (MGUS), a premalignant plasma-cell disorder, among persons 50 years of age or older has not been accurately determined. We used sensitive laboratory techniques to ascertain the prevalence of MGUS in a large population in a well-defined geographic area. METHODS: We identified all living residents of Olmsted County, Minnesota, as of January 1, 1995. We obtained serum that remained after the performance of routine clinical tests at Mayo Clinic or asked subjects for whom such serum was unavailable to provide a sample. Agarose-gel electrophoresis was performed on all serum samples, and any serum sample with a discrete band of monoclonal protein or thought to have a localized band was subjected to immunofixation. RESULTS: Serum samples were obtained from 21,463 of the 28,038 enumerated residents 50 years of age or older (76.6 percent). MGUS was identified in 694 (3.2 percent) of these persons. Age-adjusted rates were higher in men than in women (4.0 percent vs. 2.7 percent, P<0.001). The prevalence of MGUS was 5.3 percent among persons 70 years of age or older and 7.5 percent among those 85 years of age or older. The concentration of monoclonal immunoglobulin was less than 1.0 g per deciliter in 63.5 percent and at least 2.0 g per deciliter in only 4.5 percent of 694 persons. The concentration of uninvolved immunoglobulins was reduced in 27.7 percent of 447 persons tested, and 21.5 percent of 79 tested had a monoclonal urinary light chain. CONCLUSIONS: Among residents of Olmsted County, Minnesota, MGUS was found in 3.2 percent of persons 50 years of age or older and 5.3 percent of persons 70 years of age or older.",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/16571879/"
+        },
+        "crossref": {
+          "source": "Crossref",
+          "doi": "10.1056/nejmoa054494",
+          "title": "Prevalence of Monoclonal Gammopathy of Undetermined Significance",
+          "journal": "New England Journal of Medicine",
+          "journal_short": "New England Journal of Medicine",
+          "year": "2006",
+          "authors": [
+            {
+              "family": "Kyle",
+              "given": "Robert A."
+            },
+            {
+              "family": "Therneau",
+              "given": "Terry M."
+            },
+            {
+              "family": "Rajkumar",
+              "given": "S. Vincent"
+            },
+            {
+              "family": "Larson",
+              "given": "Dirk R."
+            },
+            {
+              "family": "Plevak",
+              "given": "Matthew F."
+            },
+            {
+              "family": "Offord",
+              "given": "Janice R."
+            },
+            {
+              "family": "Dispenzieri",
+              "given": "Angela"
+            },
+            {
+              "family": "Katzmann",
+              "given": "Jerry A."
+            },
+            {
+              "family": "Melton",
+              "given": "L. Joseph"
+            }
+          ],
+          "abstract": "",
+          "url": "https://doi.org/10.1056/nejmoa054494"
+        }
+      },
+      "bestTitleSimilarity": 1.0,
+      "warnings": [],
+      "problems": [],
+      "notes": []
+    }
+  ],
+  "claims": [
+    {
+      "claim": "Aging is linked to reduced immunoglobulin class switching, lower activation-induced cytidine deaminase, and impaired affinity maturation in mouse and human B-cell biology.",
+      "support": [
+        "blomberg-2013"
+      ],
+      "declaredLevel": "Supported",
+      "declaredNote": "PubMed abstract states that aging decreases Ig class switching, AID, E47, and affinity maturation in elderly vaccine responses.",
+      "evidence": [
+        {
+          "support": "blomberg-2013",
+          "status": "needs_llm_review",
+          "reason": "Abstract fetched; semantic support classification should be performed by the harness/LLM.",
+          "source": "PubMed",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/24203437/",
+          "title": "Age effects on mouse and human B cells.",
+          "abstract": "Our laboratory has contributed to the areas of B cell receptor (BCR) and pre-BCR gene identification and transcription and has focused on the problem of the aged immune system in mice and humans for the last 15 years. We have found biomarkers for the decrease in B cell function in aged mice and humans. These include decreases in immunoglobulin (Ig) class switch (e.g., IgM to IgG), decreases in the enzyme AID (activation-induced cytidine deaminase) and decreases in the transcription factor E47. The E47 mRNA stability is decreased in old B cells due to decreased phospho-MAPKinase and phospho-TTP (tristetraprolin). Inflammation, e.g., TNF-\u03b1, which increases with age, impacts B cells directly by increasing their TNF-\u03b1 and NF-\u03baB and leads to the above decreased pathway. Both class switch and affinity maturation are decreased in elderly responses to the influenza vaccine and biomarkers we have found (numbers and percentages of switched memory B cells and AID in stimulated B cells in culture) can predict a beneficial or decreased immune response to the vaccine. Current and future avenues to improve the humoral immune response in the elderly are discussed.",
+          "candidateSnippets": [
+            "These include decreases in immunoglobulin (Ig) class switch (e.g., IgM to IgG), decreases in the enzyme AID (activation-induced cytidine deaminase) and decreases in the transcription factor E47.",
+            "Both class switch and affinity maturation are decreased in elderly responses to the influenza vaccine and biomarkers we have found (numbers and percentages of switched memory B cells and AID in stimulated B cells in culture) can predict a beneficial or decreased immune response to the vaccine."
+          ]
+        }
+      ]
+    },
+    {
+      "claim": "After repeated influenza immunizations, elderly adults can maintain memory B-cell generation while the antibody response is not maintained.",
+      "support": [
+        "frasca-2016"
+      ],
+      "declaredLevel": "Supported",
+      "declaredNote": "Article title and abstract directly support the contrast between memory B-cell generation and antibody response.",
+      "evidence": [
+        {
+          "support": "frasca-2016",
+          "status": "needs_llm_review",
+          "reason": "Abstract fetched; semantic support classification should be performed by the harness/LLM.",
+          "source": "PubMed",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/27108193/",
+          "title": "The generation of memory B cells is maintained, but the antibody response is not, in the elderly after repeated influenza immunizations.",
+          "abstract": "The success of a vaccine in inducing a protective antibody response depends on the longevity of both long-lived plasma cells (PC) and memory B cells. We have previously shown that the in vivo antibody response to a new influenza vaccine, the ex vivo plasmablast response, the in vitro B cell function, measured by AID (activation-induced cytidine deaminase), and the transcription factor E47, are significantly associated and decreased in elderly individuals. We hypothesized that because AID is decreased in the elderly, the ability to generate memory B cells would also be decreased, but our findings here show that memory B cells are maintained in the elderly probably due to further amplification in response to repeated vaccination. We recruited young and elderly individuals immunized in at least two consecutive influenza vaccine seasons in which the influenza A viral strains H1N1 and H3N2 in the vaccine were the same as in the previous year. PBMC were cultured with CpG/IL2 to measure the frequency of IgG vaccine-specific memory B cells. Serum antibody response was measured by hemagglutination inhibition assay. Blood plasmablasts were measured by flow cytometry. Surprisingly, the frequencies of influenza vaccine-specific memory B cells and plasmablasts were similar in young and elderly individuals, but the fold-increase in serum titers after vaccination was lower in the elderly although most of the elderly were seroprotected. We then measured the transcription factor Blimp-1, considered the master regulator of PC differentiation, and found it significantly reduced in cultures of B cells from elderly versus young individuals, as well as E47/AID and IgG secretion. Taken together, these results suggest an impaired memory B cell to PC differentiation in the elderly.",
+          "candidateSnippets": [
+            "We have previously shown that the in vivo antibody response to a new influenza vaccine, the ex vivo plasmablast response, the in vitro B cell function, measured by AID (activation-induced cytidine deaminase), and the transcription factor E47, are significantly associated and decreased in elderly individuals.",
+            "We hypothesized that because AID is decreased in the elderly, the ability to generate memory B cells would also be decreased, but our findings here show that memory B cells are maintained in the elderly probably due to further amplification in response to repeated vaccination."
+          ]
+        }
+      ]
+    },
+    {
+      "claim": "IgG N-glycan profiles can serve as biomarkers of chronological and biological age.",
+      "support": [
+        "kristic-2014"
+      ],
+      "declaredLevel": "Supported",
+      "declaredNote": "Study title and abstract directly frame glycans, including IgG glycosylation, as biomarkers of chronological and biological age.",
+      "evidence": [
+        {
+          "support": "kristic-2014",
+          "status": "needs_llm_review",
+          "reason": "Abstract fetched; semantic support classification should be performed by the harness/LLM.",
+          "source": "PubMed",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/24325898/",
+          "title": "Glycans are a novel biomarker of chronological and biological ages.",
+          "abstract": "UNLABELLED: Fine structural details of glycans attached to the conserved N-glycosylation site significantly not only affect function of individual immunoglobulin G (IgG) molecules but also mediate inflammation at the systemic level. By analyzing IgG glycosylation in 5,117 individuals from four European populations, we have revealed very complex patterns of changes in IgG glycosylation with age. Several IgG glycans (including FA2B, FA2G2, and FA2BG2) changed considerably with age and the combination of these three glycans can explain up to 58% of variance in chronological age, significantly more than other markers of biological age like telomere lengths. The remaining variance in these glycans strongly correlated with physiological parameters associated with biological age. Thus, IgG glycosylation appears to be closely linked with both chronological and biological ages. Considering the important role of IgG glycans in inflammation, and because the observed changes with age promote inflammation, changes in IgG glycosylation also seem to represent a factor contributing to aging. SIGNIFICANCE STATEMENT: Glycosylation is the key posttranslational mechanism that regulates function of immunoglobulins, with multiple systemic repercussions to the immune system. Our study of IgG glycosylation in 5,117 individuals from four European populations has revealed very extensive and complex changes in IgG glycosylation with age. The combined index composed of only three glycans explained up to 58% of variance in age, considerably more than other biomarkers of age like telomere lengths. The remaining variance in these glycans strongly correlated with physiological parameters associated with biological age; thus, IgG glycosylation appears to be closely linked with both chronological and biological ages. The ability to measure human biological aging using molecular profiling has practical applications for diverse fields such as disease prevention and treatment, or forensics.",
+          "candidateSnippets": [
+            "Several IgG glycans (including FA2B, FA2G2, and FA2BG2) changed considerably with age and the combination of these three glycans can explain up to 58% of variance in chronological age, significantly more than other markers of biological age like telomere lengths.",
+            "The remaining variance in these glycans strongly correlated with physiological parameters associated with biological age; thus, IgG glycosylation appears to be closely linked with both chronological and biological ages."
+          ]
+        }
+      ]
+    },
+    {
+      "claim": "Monoclonal gammopathy of undetermined significance reflects a circulating monoclonal immunoglobulin state whose prevalence increases with age.",
+      "support": [
+        "kyle-2006"
+      ],
+      "declaredLevel": "Supported",
+      "declaredNote": "NEJM prevalence study defines MGUS by monoclonal protein criteria and reports age-stratified prevalence.",
+      "evidence": [
+        {
+          "support": "kyle-2006",
+          "status": "needs_llm_review",
+          "reason": "Abstract fetched; semantic support classification should be performed by the harness/LLM.",
+          "source": "PubMed",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/16571879/",
+          "title": "Prevalence of monoclonal gammopathy of undetermined significance.",
+          "abstract": "BACKGROUND: The prevalence of monoclonal gammopathy of undetermined significance (MGUS), a premalignant plasma-cell disorder, among persons 50 years of age or older has not been accurately determined. We used sensitive laboratory techniques to ascertain the prevalence of MGUS in a large population in a well-defined geographic area. METHODS: We identified all living residents of Olmsted County, Minnesota, as of January 1, 1995. We obtained serum that remained after the performance of routine clinical tests at Mayo Clinic or asked subjects for whom such serum was unavailable to provide a sample. Agarose-gel electrophoresis was performed on all serum samples, and any serum sample with a discrete band of monoclonal protein or thought to have a localized band was subjected to immunofixation. RESULTS: Serum samples were obtained from 21,463 of the 28,038 enumerated residents 50 years of age or older (76.6 percent). MGUS was identified in 694 (3.2 percent) of these persons. Age-adjusted rates were higher in men than in women (4.0 percent vs. 2.7 percent, P<0.001). The prevalence of MGUS was 5.3 percent among persons 70 years of age or older and 7.5 percent among those 85 years of age or older. The concentration of monoclonal immunoglobulin was less than 1.0 g per deciliter in 63.5 percent and at least 2.0 g per deciliter in only 4.5 percent of 694 persons. The concentration of uninvolved immunoglobulins was reduced in 27.7 percent of 447 persons tested, and 21.5 percent of 79 tested had a monoclonal urinary light chain. CONCLUSIONS: Among residents of Olmsted County, Minnesota, MGUS was found in 3.2 percent of persons 50 years of age or older and 5.3 percent of persons 70 years of age or older.",
+          "candidateSnippets": [
+            "BACKGROUND: The prevalence of monoclonal gammopathy of undetermined significance (MGUS), a premalignant plasma-cell disorder, among persons 50 years of age or older has not been accurately determined.",
+            "The prevalence of MGUS was 5.3 percent among persons 70 years of age or older and 7.5 percent among those 85 years of age or older."
+          ]
+        }
+      ]
+    }
+  ],
+  "paths": {
+    "json": "/Users/afischbach/Documents/CitationTool/artifacts/aging_immunoglobulins/reference_verification.json",
+    "report": "/Users/afischbach/Documents/CitationTool/artifacts/aging_immunoglobulins/verification_report.md"
+  }
+}

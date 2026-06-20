@@ -1,0 +1,351 @@
+{
+  "slug": "aging_immunoglobulins",
+  "title": "Aging and Immunoglobulins: Zotero-Active Draft",
+  "active_subtitle": "Short draft with verified references, abstract-level evidence, and Zotero-active Word fields",
+  "placeholder_subtitle": "Fallback draft with visible Zotero placeholders",
+  "body_heading": "Draft Introduction",
+  "reference_heading": "References",
+  "output_dir": "artifacts/aging_immunoglobulins",
+  "zotero_tags": [
+    "CitationTool",
+    "aging immunoglobulins"
+  ],
+  "zotero_note": "<p>Imported by CitationTool from the aging and immunoglobulins project spec.</p>",
+  "placeholders": {
+    "blomberg-2013": "[ZOTERO: Blomberg 2013]",
+    "frasca-2016": "[ZOTERO: Frasca 2016]",
+    "kristic-2014": "[ZOTERO: Kristic 2014]",
+    "kyle-2006": "[ZOTERO: Kyle 2006]"
+  },
+  "references": [
+    {
+      "id": "blomberg-2013",
+      "type": "article-journal",
+      "title": "Age effects on mouse and human B cells",
+      "container-title": "Immunologic Research",
+      "container-title-short": "Immunol Res",
+      "author": [
+        {
+          "family": "Blomberg",
+          "given": "BB"
+        },
+        {
+          "family": "Frasca",
+          "given": "D"
+        }
+      ],
+      "issued": {
+        "date-parts": [
+          [
+            2013,
+            12
+          ]
+        ]
+      },
+      "volume": "57",
+      "issue": "1-3",
+      "page": "354-360",
+      "DOI": "10.1007/s12026-013-8440-9",
+      "PMID": "24203437",
+      "URL": "https://doi.org/10.1007/s12026-013-8440-9"
+    },
+    {
+      "id": "frasca-2016",
+      "type": "article-journal",
+      "title": "The generation of memory B cells is maintained, but the antibody response is not, in the elderly after repeated influenza immunizations",
+      "container-title": "Vaccine",
+      "container-title-short": "Vaccine",
+      "author": [
+        {
+          "family": "Frasca",
+          "given": "D"
+        },
+        {
+          "family": "Diaz",
+          "given": "A"
+        },
+        {
+          "family": "Romero",
+          "given": "M"
+        },
+        {
+          "family": "Blomberg",
+          "given": "BB"
+        }
+      ],
+      "issued": {
+        "date-parts": [
+          [
+            2016,
+            5,
+            27
+          ]
+        ]
+      },
+      "volume": "34",
+      "issue": "25",
+      "page": "2834-2840",
+      "DOI": "10.1016/j.vaccine.2016.04.023",
+      "PMID": "27108193",
+      "URL": "https://doi.org/10.1016/j.vaccine.2016.04.023"
+    },
+    {
+      "id": "kristic-2014",
+      "type": "article-journal",
+      "title": "Glycans are a novel biomarker of chronological and biological ages",
+      "container-title": "The Journals of Gerontology. Series A, Biological Sciences and Medical Sciences",
+      "container-title-short": "J Gerontol A Biol Sci Med Sci",
+      "author": [
+        {
+          "family": "Krištić",
+          "given": "J"
+        },
+        {
+          "family": "Vučković",
+          "given": "F"
+        },
+        {
+          "family": "Menni",
+          "given": "C"
+        },
+        {
+          "family": "Klarić",
+          "given": "L"
+        },
+        {
+          "family": "Keser",
+          "given": "T"
+        },
+        {
+          "family": "Beceheli",
+          "given": "I"
+        },
+        {
+          "family": "Pučić-Baković",
+          "given": "M"
+        },
+        {
+          "family": "Novokmet",
+          "given": "M"
+        },
+        {
+          "family": "Mangino",
+          "given": "M"
+        },
+        {
+          "family": "Thaqi",
+          "given": "K"
+        },
+        {
+          "family": "Rudan",
+          "given": "P"
+        },
+        {
+          "family": "Novokmet",
+          "given": "N"
+        },
+        {
+          "family": "Sarac",
+          "given": "J"
+        },
+        {
+          "family": "Missoni",
+          "given": "S"
+        },
+        {
+          "family": "Kolčić",
+          "given": "I"
+        },
+        {
+          "family": "Polašek",
+          "given": "O"
+        },
+        {
+          "family": "Rudan",
+          "given": "I"
+        },
+        {
+          "family": "Campbell",
+          "given": "H"
+        },
+        {
+          "family": "Hayward",
+          "given": "C"
+        },
+        {
+          "family": "Aulchenko",
+          "given": "Y"
+        },
+        {
+          "family": "Valdes",
+          "given": "A"
+        },
+        {
+          "family": "Wilson",
+          "given": "JF"
+        },
+        {
+          "family": "Gornik",
+          "given": "O"
+        },
+        {
+          "family": "Primorac",
+          "given": "D"
+        },
+        {
+          "family": "Zoldoš",
+          "given": "V"
+        },
+        {
+          "family": "Spector",
+          "given": "T"
+        },
+        {
+          "family": "Lauc",
+          "given": "G"
+        }
+      ],
+      "issued": {
+        "date-parts": [
+          [
+            2014,
+            7
+          ]
+        ]
+      },
+      "volume": "69",
+      "issue": "7",
+      "page": "779-789",
+      "DOI": "10.1093/gerona/glt190",
+      "PMID": "24325898",
+      "URL": "https://doi.org/10.1093/gerona/glt190"
+    },
+    {
+      "id": "kyle-2006",
+      "type": "article-journal",
+      "title": "Prevalence of monoclonal gammopathy of undetermined significance",
+      "container-title": "The New England Journal of Medicine",
+      "container-title-short": "N Engl J Med",
+      "author": [
+        {
+          "family": "Kyle",
+          "given": "RA"
+        },
+        {
+          "family": "Therneau",
+          "given": "TM"
+        },
+        {
+          "family": "Rajkumar",
+          "given": "SV"
+        },
+        {
+          "family": "Larson",
+          "given": "DR"
+        },
+        {
+          "family": "Plevak",
+          "given": "MF"
+        },
+        {
+          "family": "Offord",
+          "given": "JR"
+        },
+        {
+          "family": "Dispenzieri",
+          "given": "A"
+        },
+        {
+          "family": "Katzmann",
+          "given": "JA"
+        },
+        {
+          "family": "Melton",
+          "given": "LJ 3rd"
+        }
+      ],
+      "issued": {
+        "date-parts": [
+          [
+            2006,
+            3,
+            30
+          ]
+        ]
+      },
+      "volume": "354",
+      "issue": "13",
+      "page": "1362-1369",
+      "DOI": "10.1056/NEJMoa054494",
+      "PMID": "16571879",
+      "URL": "https://doi.org/10.1056/NEJMoa054494"
+    }
+  ],
+  "paragraphs": [
+    [
+      {
+        "text": "Aging reshapes humoral immunity rather than simply lowering all antibody production. In mouse and human B cells, aging has been linked to reduced immunoglobulin class switching, lower activation-induced cytidine deaminase, and impaired affinity maturation, providing a mechanistic frame for weaker class-switched antibody responses "
+      },
+      {
+        "cite": "blomberg-2013"
+      },
+      {
+        "text": "."
+      }
+    ],
+    [
+      {
+        "text": "This defect is visible in vaccination studies. After repeated influenza immunizations, elderly adults can maintain memory B-cell generation while failing to maintain the antibody response, suggesting that immunoglobulin output and quality may diverge from memory-cell counts "
+      },
+      {
+        "cite": "frasca-2016"
+      },
+      {
+        "text": "."
+      }
+    ],
+    [
+      {
+        "text": "Immunoglobulins also carry age information in their structure and clonal distribution. IgG N-glycan profiles have been reported as biomarkers of chronological and biological age, linking antibody Fc biology to aging-associated inflammatory phenotypes "
+      },
+      {
+        "cite": "kristic-2014"
+      },
+      {
+        "text": ". At the clonal end of the spectrum, monoclonal gammopathy of undetermined significance is defined by a circulating monoclonal immunoglobulin and becomes more prevalent with age "
+      },
+      {
+        "cite": "kyle-2006"
+      },
+      {
+        "text": "."
+      }
+    ]
+  ],
+  "claims": [
+    {
+      "claim": "Aging is linked to reduced immunoglobulin class switching, lower activation-induced cytidine deaminase, and impaired affinity maturation in mouse and human B-cell biology.",
+      "support": "blomberg-2013",
+      "level": "Supported",
+      "note": "PubMed abstract states that aging decreases Ig class switching, AID, E47, and affinity maturation in elderly vaccine responses."
+    },
+    {
+      "claim": "After repeated influenza immunizations, elderly adults can maintain memory B-cell generation while the antibody response is not maintained.",
+      "support": "frasca-2016",
+      "level": "Supported",
+      "note": "Article title and abstract directly support the contrast between memory B-cell generation and antibody response."
+    },
+    {
+      "claim": "IgG N-glycan profiles can serve as biomarkers of chronological and biological age.",
+      "support": "kristic-2014",
+      "level": "Supported",
+      "note": "Study title and abstract directly frame glycans, including IgG glycosylation, as biomarkers of chronological and biological age."
+    },
+    {
+      "claim": "Monoclonal gammopathy of undetermined significance reflects a circulating monoclonal immunoglobulin state whose prevalence increases with age.",
+      "support": "kyle-2006",
+      "level": "Supported",
+      "note": "NEJM prevalence study defines MGUS by monoclonal protein criteria and reports age-stratified prevalence."
+    }
+  ]
+}
