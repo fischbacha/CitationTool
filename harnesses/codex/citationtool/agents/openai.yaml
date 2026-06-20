@@ -1,0 +1,4 @@
+interface:
+  display_name: "CitationTool"
+  short_description: "Create Zotero-active cited Word drafts"
+  default_prompt: "Use $citationtool to write a short biomedical introduction with Zotero-active citations and abstract-depth source checking."

@@ -1,11 +1,9 @@
 ---
 name: citationtool
-description: Generate Zotero-active Word drafts from LLM-written biomedical or grant/paper introduction text, with verified references, RIS/CSL files, claim-support reports, Word/Zotero validation, and optional Quick Look or LibreOffice visual rendering using the local CitationTool CLI.
+description: Generate Zotero-active Word drafts from LLM-written biomedical or grant/paper introduction text. Use when the user asks CitationTool/Citation Tool to draft a Word introduction with Zotero-editable citations, build a Zotero import library, verify DOI/PMID metadata, run abstract-level citation support checks, or produce claim-support reports using the local CitationTool CLI.
 ---
 
 # CitationTool
-
-Use this skill when the user wants a Word draft with Zotero-editable citations, a Zotero import library, or a claim-by-claim citation support report.
 
 Microsoft Word plus the Zotero Word plugin is the primary validation path. LibreOffice is optional for users who have Zotero's LibreOffice plugin or want LibreOffice-based visual export.
 
@@ -13,39 +11,42 @@ Microsoft Word plus the Zotero Word plugin is the primary validation path. Libre
 
 Do not invent references. Write claims first, then attach only verified sources with DOI/PMID metadata and an explicit claim-support mapping.
 
+## Repo Root
+
+Run all CLI commands from the CitationTool repo root. Prefer the current workspace if it contains `citationtool/cli.py`; otherwise use `$CITATIONTOOL_HOME`; otherwise try `/Users/afischbach/Documents/CitationTool`. If no repo is found, ask the user for the path.
+
 ## Workflow
 
-1. Draft concise introduction text and split it into citation-bearing paragraph chunks.
-2. Build or update a CitationTool JSON project spec. For the required shape, read `references/project-spec.md`.
-3. Build the draft with deterministic metadata verification:
+1. Search PubMed/Crossref for a small, defensible reference set with DOI/PMID metadata. Prefer 3-5 references for a demo draft.
+2. Draft concise introduction text with narrow citation-bearing claims.
+3. Build or update a CitationTool JSON project spec. For the required shape, read `references/project-spec.md`.
+4. Build the draft with deterministic metadata verification:
 
 ```bash
 python3 -m citationtool.cli run <spec.json> --no-zotero-import --verify metadata
 ```
 
-4. For stronger claim checking, fetch abstract evidence and use the LLM to classify each claim as `supported`, `partially_supported`, `unsupported`, or `not_assessable`:
+5. For high-depth checking, fetch abstract evidence and write `abstract_support_review.md`. Read `references/support-review.md` for the review rubric.
 
 ```bash
 python3 -m citationtool.cli verify <spec.json> --depth abstract
 ```
 
-The CLI provides abstract evidence and candidate snippets; do not treat keyword overlap as final support.
-
-5. Inspect the generated active DOCX:
+6. Inspect the generated active DOCX:
 
 ```bash
 python3 -m citationtool.cli inspect <active.docx>
 unzip -t <active.docx>
 ```
 
-6. Visually render the active DOCX if the environment supports it:
+7. Visually render the active DOCX if the environment supports it:
 
 ```bash
 python3 -m citationtool.cli run <spec.json> --no-zotero-import --verify none --render auto
 ```
 
 On macOS, `auto` tries Quick Look first; otherwise it tries LibreOffice. If rendering is skipped or fails, state the reason and continue with field/archive validation.
-7. When the user wants live Zotero/Word handoff, run:
+8. When the user explicitly wants live Zotero/Word handoff, run:
 
 ```bash
 python3 -m citationtool.cli run <spec.json> --refresh-word
@@ -61,6 +62,7 @@ This imports references through Zotero's local connector unless `--no-zotero-imp
 - `claim_support_report.md`.
 - `reference_verification.json`.
 - `verification_report.md`.
+- `abstract_support_review.md` for high-depth runs.
 - `automation_summary.md`.
 
 ## Validation Bar
@@ -72,6 +74,6 @@ Before calling the result done, confirm:
 - claim report maps every substantive claim to a citation key
 - reference metadata includes DOI or PMID where available
 - `verification_report.md` has no failed metadata checks, or failures are reported clearly
-- abstract-depth evidence is reviewed by the harness/LLM when the user requests deep support checking
+- abstract-depth evidence is reviewed by the harness/LLM when the user requests high-depth support checking
 - Word/Zotero refresh succeeds or any blocker is reported clearly
 - visual render succeeds, is skipped intentionally, or any renderer blocker is reported clearly
