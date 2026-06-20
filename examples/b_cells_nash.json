@@ -1,0 +1,331 @@
+{
+  "slug": "b_cells_nash",
+  "title": "B Cells in NASH/MASH: Zotero-Active Draft",
+  "active_subtitle": "Short draft with verified B-cell/NASH references and Zotero-active Word fields",
+  "placeholder_subtitle": "Fallback draft with visible Zotero placeholders",
+  "body_heading": "Draft Introduction",
+  "reference_heading": "References",
+  "output_dir": "artifacts/b_cells_nash",
+  "zotero_tags": [
+    "CitationTool",
+    "B cells NASH"
+  ],
+  "zotero_note": "<p>Imported by CitationTool from the B cells in NASH project spec.</p>",
+  "placeholders": {
+    "barrow-review-2021": "[ZOTERO: Barrow 2021 review]",
+    "barrow-nash-2021": "[ZOTERO: Barrow 2021 NASH]",
+    "kim-cxcr5-2025": "[ZOTERO: Kim 2025]",
+    "lu-single-cell-2026": "[ZOTERO: Lu 2026]"
+  },
+  "references": [
+    {
+      "id": "barrow-review-2021",
+      "type": "article-journal",
+      "title": "The Emerging Role of B Cells in the Pathogenesis of NAFLD",
+      "container-title": "Hepatology",
+      "container-title-short": "Hepatology",
+      "author": [
+        {
+          "family": "Barrow",
+          "given": "F"
+        },
+        {
+          "family": "Khan",
+          "given": "S"
+        },
+        {
+          "family": "Wang",
+          "given": "H"
+        },
+        {
+          "family": "Revelo",
+          "given": "XS"
+        }
+      ],
+      "issued": {
+        "date-parts": [
+          [
+            2021,
+            10
+          ]
+        ]
+      },
+      "volume": "74",
+      "issue": "4",
+      "page": "2277-2286",
+      "DOI": "10.1002/hep.31889",
+      "PMID": "33961302",
+      "URL": "https://doi.org/10.1002/hep.31889"
+    },
+    {
+      "id": "barrow-nash-2021",
+      "type": "article-journal",
+      "title": "Microbiota-Driven Activation of Intrahepatic B Cells Aggravates NASH Through Innate and Adaptive Signaling",
+      "container-title": "Hepatology",
+      "container-title-short": "Hepatology",
+      "author": [
+        {
+          "family": "Barrow",
+          "given": "F"
+        },
+        {
+          "family": "Khan",
+          "given": "S"
+        },
+        {
+          "family": "Fredrickson",
+          "given": "G"
+        },
+        {
+          "family": "Wang",
+          "given": "H"
+        },
+        {
+          "family": "Dietsche",
+          "given": "K"
+        },
+        {
+          "family": "Parthiban",
+          "given": "P"
+        },
+        {
+          "family": "Robert",
+          "given": "S"
+        },
+        {
+          "family": "Kaiser",
+          "given": "T"
+        },
+        {
+          "family": "Winer",
+          "given": "S"
+        },
+        {
+          "family": "Herman",
+          "given": "A"
+        },
+        {
+          "family": "Adeyi",
+          "given": "O"
+        },
+        {
+          "family": "Mouzaki",
+          "given": "M"
+        },
+        {
+          "family": "Khoruts",
+          "given": "A"
+        },
+        {
+          "family": "Hogquist",
+          "given": "KA"
+        },
+        {
+          "family": "Staley",
+          "given": "C"
+        },
+        {
+          "family": "Winer",
+          "given": "DA"
+        },
+        {
+          "family": "Revelo",
+          "given": "XS"
+        }
+      ],
+      "issued": {
+        "date-parts": [
+          [
+            2021,
+            8
+          ]
+        ]
+      },
+      "volume": "74",
+      "issue": "2",
+      "page": "704-722",
+      "DOI": "10.1002/hep.31755",
+      "PMID": "33609303",
+      "URL": "https://doi.org/10.1002/hep.31755"
+    },
+    {
+      "id": "kim-cxcr5-2025",
+      "type": "article-journal",
+      "title": "Bacterial components-driven intrahepatic CXCR5hi B cells are important population for MASH progression through inducing inflammation",
+      "container-title": "FASEB Journal",
+      "container-title-short": "FASEB J",
+      "author": [
+        {
+          "family": "Kim",
+          "given": "NH"
+        },
+        {
+          "family": "Kim",
+          "given": "MY"
+        },
+        {
+          "family": "Yang",
+          "given": "YM"
+        },
+        {
+          "family": "Jeong",
+          "given": "WI"
+        },
+        {
+          "family": "Lee",
+          "given": "HW"
+        },
+        {
+          "family": "Kim",
+          "given": "W"
+        },
+        {
+          "family": "Kang",
+          "given": "SG"
+        },
+        {
+          "family": "Han",
+          "given": "YH"
+        }
+      ],
+      "issued": {
+        "date-parts": [
+          [
+            2025,
+            1,
+            31
+          ]
+        ]
+      },
+      "volume": "39",
+      "issue": "2",
+      "page": "e70322",
+      "DOI": "10.1096/fj.202401256R",
+      "PMID": "39812617",
+      "URL": "https://doi.org/10.1096/fj.202401256R"
+    },
+    {
+      "id": "lu-single-cell-2026",
+      "type": "article-journal",
+      "title": "Single-cell transcriptomic landscape of intrahepatic B Cells in MASH",
+      "container-title": "BMC Gastroenterology",
+      "container-title-short": "BMC Gastroenterol",
+      "author": [
+        {
+          "family": "Lu",
+          "given": "JC"
+        },
+        {
+          "family": "Xiong",
+          "given": "ML"
+        },
+        {
+          "family": "Cai",
+          "given": "ZQ"
+        },
+        {
+          "family": "Mao",
+          "given": "T"
+        },
+        {
+          "family": "Tang",
+          "given": "L"
+        },
+        {
+          "family": "Li",
+          "given": "HY"
+        },
+        {
+          "family": "Xu",
+          "given": "MY"
+        },
+        {
+          "family": "Luo",
+          "given": "SZ"
+        }
+      ],
+      "issued": {
+        "date-parts": [
+          [
+            2026,
+            2,
+            25
+          ]
+        ]
+      },
+      "volume": "26",
+      "issue": "1",
+      "page": "197",
+      "DOI": "10.1186/s12876-026-04704-w",
+      "PMID": "41735840",
+      "URL": "https://doi.org/10.1186/s12876-026-04704-w"
+    }
+  ],
+  "paragraphs": [
+    [
+      {
+        "text": "NASH, increasingly referred to within the newer MASH terminology, is not only a hepatocyte stress disorder but also an immune-remodeling state in which adaptive immune cells can shape inflammatory progression. Within that adaptive compartment, B cells have moved from being viewed as bystanders to being studied as candidate amplifiers and regulators of NAFLD/NASH pathogenesis "
+      },
+      {
+        "cite": "barrow-review-2021"
+      },
+      {
+        "text": "."
+      }
+    ],
+    [
+      {
+        "text": "Experimental evidence places B cells directly in the gut-liver axis of NASH. Intrahepatic B cells can be activated in a microbiota-driven manner and aggravate NASH through innate and adaptive immune signaling "
+      },
+      {
+        "cite": "barrow-nash-2021"
+      },
+      {
+        "text": ". More recent work further identifies intrahepatic CXCR5hi B cells induced by bacterial components as an inflammatory population that can express TNF-alpha, CD80, and MHC class II and promote T-cell activation in MASH models "
+      },
+      {
+        "cite": "kim-cxcr5-2025"
+      },
+      {
+        "text": "."
+      }
+    ],
+    [
+      {
+        "text": "For a grant introduction, the most defensible framing is therefore not simply that total B-cell abundance is increased, but that specific B-cell states and niches may matter. Single-cell profiling of intrahepatic B cells in MASH supports this subset-oriented view and provides a rationale to separate pathogenic, regulatory, and antigen-presenting B-cell programs in future studies "
+      },
+      {
+        "cite": "lu-single-cell-2026"
+      },
+      {
+        "text": "."
+      }
+    ]
+  ],
+  "claims": [
+    {
+      "claim": "B cells are an emerging adaptive immune component in NAFLD/NASH pathogenesis rather than merely bystander lymphocytes.",
+      "support": "barrow-review-2021",
+      "level": "Supported",
+      "note": "Review focused on B-cell roles in NAFLD/NASH pathogenesis."
+    },
+    {
+      "claim": "Microbiota-driven activation of intrahepatic B cells can aggravate NASH through innate and adaptive immune signaling.",
+      "support": "barrow-nash-2021",
+      "level": "Supported",
+      "note": "Direct mechanistic Hepatology study; the title and metadata explicitly match the claim."
+    },
+    {
+      "claim": "Bacterial components can induce an intrahepatic CXCR5hi B-cell population with inflammatory features in MASH.",
+      "support": "kim-cxcr5-2025",
+      "level": "Supported",
+      "note": "Abstract states CXCR5hi B cells are induced by bacterial components and express inflammatory/antigen-presenting markers."
+    },
+    {
+      "claim": "Single-cell profiling supports a subset-oriented view of intrahepatic B-cell biology in MASH.",
+      "support": "lu-single-cell-2026",
+      "level": "Supported",
+      "note": "Direct single-cell transcriptomic study of intrahepatic B cells in MASH."
+    }
+  ]
+}
