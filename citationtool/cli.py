@@ -8,6 +8,7 @@ from pathlib import Path
 
 from .builder import ROOT, build_project, inspect_docx_fields, load_project, project_out_dir
 from .rendering import RenderResult, render_docx
+from .verification import verify_project
 from .zotero import import_ris_into_zotero, request_zotero_word_refresh
 
 
@@ -25,6 +26,7 @@ def write_summary(
     import_result: dict,
     refresh_result: dict | None,
     render_result: RenderResult,
+    verification_result: dict | None,
 ):
     summary = outputs.out_dir / "automation_summary.md"
     lines = [
@@ -41,9 +43,26 @@ def write_summary(
         "",
         f"Detected {field_check['citationFields']} citation fields and {field_check['bibliographyFields']} bibliography field.",
         "",
-        "## Zotero",
+        "## Reference Verification",
         "",
     ]
+    if verification_result:
+        report = verification_result.get("paths", {}).get("report")
+        report_text = f" Report: `{repo_path(Path(report))}`." if report else ""
+        lines.append(
+            f"Verification depth `{verification_result['depth']}` finished with status "
+            f"`{verification_result['overallStatus']}`.{report_text}"
+        )
+    else:
+        lines.append("Skipped: verification was not requested.")
+
+    lines.extend(
+        [
+            "",
+            "## Zotero",
+            "",
+        ]
+    )
     if import_result.get("imported"):
         lines.append(
             f"Imported {len(import_result.get('items', []))} references into "
@@ -81,6 +100,17 @@ def open_in_word(docx: Path):
 def run_project(args) -> int:
     project = load_project(args.spec)
     out_dir = project_out_dir(project, args.out)
+    verification_result = None
+    if args.verify != "none":
+        verification_result = verify_project(project, out_dir, depth=args.verify, email=args.contact_email)
+        if verification_result["overallStatus"] == "failed" and not args.verify_warn_only:
+            print(
+                "Reference verification: "
+                f"{verification_result['overallStatus']} ({verification_result['depth']})"
+            )
+            print(f"Verification report: {verification_result['paths']['report']}")
+            return 2
+
     outputs = build_project(project, out_dir)
     field_check = inspect_docx_fields(outputs.active_docx)
 
@@ -108,7 +138,15 @@ def run_project(args) -> int:
 
     render_result = render_docx(outputs.active_docx, outputs.out_dir / "rendered", args.render)
 
-    summary = write_summary(project, outputs, field_check, import_result, refresh_result, render_result)
+    summary = write_summary(
+        project,
+        outputs,
+        field_check,
+        import_result,
+        refresh_result,
+        render_result,
+        verification_result,
+    )
     print(f"Generated active Zotero Word draft: {outputs.active_docx}")
     print(f"Generated placeholder fallback draft: {outputs.placeholder_docx}")
     print(f"Generated RIS: {outputs.ris}")
@@ -118,6 +156,11 @@ def run_project(args) -> int:
         f"{field_check['citationFields']} citation fields, "
         f"{field_check['bibliographyFields']} bibliography field"
     )
+    if verification_result:
+        print(
+            "Reference verification: "
+            f"{verification_result['overallStatus']} ({verification_result['depth']})"
+        )
     if import_result.get("imported"):
         print(f"Imported {len(import_result.get('items', []))} references into Zotero target: {import_result['target']['name']}")
     elif import_result.get("skipped"):
@@ -138,6 +181,18 @@ def inspect_docx(args) -> int:
     return 0
 
 
+def verify_references(args) -> int:
+    project = load_project(args.spec)
+    out_dir = project_out_dir(project, args.out)
+    result = verify_project(project, out_dir, depth=args.depth, email=args.contact_email)
+    print(f"Reference verification: {result['overallStatus']} ({result['depth']})")
+    print(f"JSON: {result['paths']['json']}")
+    print(f"Report: {result['paths']['report']}")
+    if result["overallStatus"] == "failed" and not args.warn_only:
+        return 2
+    return 0
+
+
 def parse_args(argv: list[str] | None = None):
     parser = argparse.ArgumentParser(description="Generate Zotero-active Word drafts from CitationTool project specs.")
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -152,6 +207,17 @@ def parse_args(argv: list[str] | None = None):
     run.add_argument("--open-placeholder-word", action="store_true", help="Open the generated placeholder fallback draft.")
     run.add_argument("--refresh-word", action="store_true", help="Ask Zotero's Mac Word integration endpoint to refresh the active draft.")
     run.add_argument(
+        "--verify",
+        choices=["none", "metadata", "abstract"],
+        default="metadata",
+        help="Verify references before generation. Metadata checks DOI/PMID; abstract also fetches evidence for claim review.",
+    )
+    run.add_argument("--verify-warn-only", action="store_true", help="Continue generation even if verification fails.")
+    run.add_argument(
+        "--contact-email",
+        help="Contact email for polite PubMed/Crossref API use. Can also use CITATIONTOOL_CONTACT_EMAIL.",
+    )
+    run.add_argument(
         "--render",
         choices=["none", "auto", "quicklook", "libreoffice"],
         default="none",
@@ -162,6 +228,17 @@ def parse_args(argv: list[str] | None = None):
     inspect = subparsers.add_parser("inspect", help="Count generated Zotero field markers in a DOCX.")
     inspect.add_argument("docx", type=Path)
     inspect.set_defaults(func=inspect_docx)
+
+    verify = subparsers.add_parser("verify", help="Verify DOI/PMID metadata and optionally fetch abstract evidence.")
+    verify.add_argument("spec", type=Path, help="Path to a CitationTool JSON project spec.")
+    verify.add_argument("--out", type=Path, help="Override output directory.")
+    verify.add_argument("--depth", choices=["metadata", "abstract"], default="metadata", help="Verification depth.")
+    verify.add_argument("--warn-only", action="store_true", help="Return success even if verification finds failures.")
+    verify.add_argument(
+        "--contact-email",
+        help="Contact email for polite PubMed/Crossref API use. Can also use CITATIONTOOL_CONTACT_EMAIL.",
+    )
+    verify.set_defaults(func=verify_references)
 
     return parser.parse_args(argv)
 

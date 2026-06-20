@@ -14,7 +14,7 @@ Use a JSON project spec as the boundary between LLM drafting and deterministic W
 
 ## Strongly Recommended Fields
 
-- `claims`: claim-support map with `claim`, `support`, `level`, and `note`.
+- `claims`: claim-support map with `claim`, `support`, `level`, and `note`; abstract-depth verification uses this list to fetch evidence for LLM review.
 - `zotero_tags`: tags applied during Zotero connector import.
 - `zotero_note`: note attached to the Zotero import session.
 - `placeholders`: fallback placeholder text for each reference id.
@@ -68,4 +68,5 @@ Use a JSON project spec as the boundary between LLM drafting and deterministic W
 - Keep citation-bearing chunks narrow: one citation should support the immediately preceding claim.
 - Prefer review articles for broad background claims and primary papers or consensus statements for specific mechanistic, diagnostic, or clinical claims.
 - If a claim is not clearly supported, either remove it, soften it, or mark it as weak in the claim report.
+- Use `python3 -m citationtool.cli verify <spec.json> --depth metadata` for DOI/PMID checks and `--depth abstract` when claim-support evidence should be reviewed from abstracts.
 - Use numbered citations by default for biomedical grant/paper introductions.

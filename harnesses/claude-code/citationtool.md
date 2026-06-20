@@ -13,26 +13,32 @@ Microsoft Word plus the Zotero Word plugin is the primary editable-citation targ
 1. Write a focused introduction draft.
 2. Break the draft into paragraph chunks with `text` and `cite` entries.
 3. Build a JSON project spec. Follow `harnesses/codex/citationtool/references/project-spec.md`.
-4. Run from the repo root:
+4. Build from the repo root with metadata verification:
 
 ```bash
-python3 -m citationtool.cli run <spec.json> --no-zotero-import
+python3 -m citationtool.cli run <spec.json> --no-zotero-import --verify metadata
 ```
 
-5. Validate:
+5. For deep support checking, fetch abstract evidence and use the LLM to classify each claim as `supported`, `partially_supported`, `unsupported`, or `not_assessable`:
+
+```bash
+python3 -m citationtool.cli verify <spec.json> --depth abstract
+```
+
+6. Validate:
 
 ```bash
 python3 -m citationtool.cli inspect <active.docx>
 unzip -t <active.docx>
 ```
 
-6. Optional visual QA:
+7. Optional visual QA:
 
 ```bash
-python3 -m citationtool.cli run <spec.json> --no-zotero-import --render auto
+python3 -m citationtool.cli run <spec.json> --no-zotero-import --verify none --render auto
 ```
 
-7. For live Zotero/Word handoff:
+8. For live Zotero/Word handoff:
 
 ```bash
 python3 -m citationtool.cli run <spec.json> --refresh-word
@@ -43,6 +49,7 @@ python3 -m citationtool.cli run <spec.json> --refresh-word
 - Do not invent references.
 - Every substantive claim needs a claim-support entry.
 - Prefer DOI/PMID metadata.
+- Treat abstract mode as an evidence packet plus LLM judgment, not as a keyword-only answer.
 - Report unsupported or weakly supported claims instead of hiding them.
 - The active Word draft is the primary deliverable; the placeholder draft is fallback.
 - Report whether rendering used Quick Look, LibreOffice, or was intentionally skipped.

@@ -17,27 +17,35 @@ Do not invent references. Write claims first, then attach only verified sources 
 
 1. Draft concise introduction text and split it into citation-bearing paragraph chunks.
 2. Build or update a CitationTool JSON project spec. For the required shape, read `references/project-spec.md`.
-3. Run the CLI from the repo root:
+3. Build the draft with deterministic metadata verification:
 
 ```bash
-python3 -m citationtool.cli run <spec.json> --no-zotero-import
+python3 -m citationtool.cli run <spec.json> --no-zotero-import --verify metadata
 ```
 
-4. Inspect the generated active DOCX:
+4. For stronger claim checking, fetch abstract evidence and use the LLM to classify each claim as `supported`, `partially_supported`, `unsupported`, or `not_assessable`:
+
+```bash
+python3 -m citationtool.cli verify <spec.json> --depth abstract
+```
+
+The CLI provides abstract evidence and candidate snippets; do not treat keyword overlap as final support.
+
+5. Inspect the generated active DOCX:
 
 ```bash
 python3 -m citationtool.cli inspect <active.docx>
 unzip -t <active.docx>
 ```
 
-5. Visually render the active DOCX if the environment supports it:
+6. Visually render the active DOCX if the environment supports it:
 
 ```bash
-python3 -m citationtool.cli run <spec.json> --no-zotero-import --render auto
+python3 -m citationtool.cli run <spec.json> --no-zotero-import --verify none --render auto
 ```
 
 On macOS, `auto` tries Quick Look first; otherwise it tries LibreOffice. If rendering is skipped or fails, state the reason and continue with field/archive validation.
-6. When the user wants live Zotero/Word handoff, run:
+7. When the user wants live Zotero/Word handoff, run:
 
 ```bash
 python3 -m citationtool.cli run <spec.json> --refresh-word
@@ -51,6 +59,8 @@ This imports references through Zotero's local connector unless `--no-zotero-imp
 - Placeholder fallback `.docx`.
 - RIS and CSL JSON reference files.
 - `claim_support_report.md`.
+- `reference_verification.json`.
+- `verification_report.md`.
 - `automation_summary.md`.
 
 ## Validation Bar
@@ -61,5 +71,7 @@ Before calling the result done, confirm:
 - DOCX archive integrity passes with `unzip -t`
 - claim report maps every substantive claim to a citation key
 - reference metadata includes DOI or PMID where available
+- `verification_report.md` has no failed metadata checks, or failures are reported clearly
+- abstract-depth evidence is reviewed by the harness/LLM when the user requests deep support checking
 - Word/Zotero refresh succeeds or any blocker is reported clearly
 - visual render succeeds, is skipped intentionally, or any renderer blocker is reported clearly

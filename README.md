@@ -7,21 +7,29 @@ The primary workflow is Microsoft Word plus the Zotero Word plugin. LibreOffice 
 ## Recommended command
 
 ```bash
-python3 -m citationtool.cli run examples/immunoglobulins_fibrosis_demo.json --refresh-word
+python3 -m citationtool.cli run examples/immunoglobulins_fibrosis_demo.json --verify metadata --refresh-word
 ```
 
-This reads a JSON project spec, generates a Zotero-active Word draft, generates a placeholder fallback draft, writes RIS/CSL JSON import files, imports references into the currently selected Zotero target through Zotero's local connector, and asks Zotero's Mac Word integration endpoint to refresh the active draft.
+This reads a JSON project spec, verifies DOI/PMID metadata through PubMed/Crossref, generates a Zotero-active Word draft, generates a placeholder fallback draft, writes RIS/CSL JSON import files, imports references into the currently selected Zotero target through Zotero's local connector, and asks Zotero's Mac Word integration endpoint to refresh the active draft.
 
-For offline generation without touching Zotero:
+For pure offline generation without touching Zotero or external metadata services:
 
 ```bash
-python3 -m citationtool.cli run examples/immunoglobulins_fibrosis_demo.json --no-zotero-import
+python3 -m citationtool.cli run examples/immunoglobulins_fibrosis_demo.json --no-zotero-import --verify none
 ```
+
+For a deeper citation audit that fetches abstracts for claim review:
+
+```bash
+python3 -m citationtool.cli verify examples/immunoglobulins_fibrosis_demo.json --depth abstract
+```
+
+`metadata` verification is deterministic and checks that DOI/PMID metadata resolves and matches the spec. `abstract` verification also fetches PubMed/Crossref abstract evidence and candidate snippets for LLM-assisted claim-support review; the CLI intentionally does not make final semantic support judgments from keyword overlap alone.
 
 For optional visual QA:
 
 ```bash
-python3 -m citationtool.cli run examples/immunoglobulins_fibrosis_demo.json --no-zotero-import --render auto
+python3 -m citationtool.cli run examples/immunoglobulins_fibrosis_demo.json --no-zotero-import --verify metadata --render auto
 ```
 
 `--render auto` uses Quick Look on macOS when available, otherwise tries LibreOffice. Use `--render none` for pure generation, `--render quicklook` for macOS native preview output, or `--render libreoffice` for LibreOffice-based PDF/PNG export. Rendered files are written below `artifacts/.../rendered/` and are ignored by git.
@@ -33,11 +41,15 @@ python3 -m citationtool.cli run examples/immunoglobulins_fibrosis_demo.json --no
 - `artifacts/immunoglobulins_fibrosis_cli/immunoglobulins_fibrosis_demo_references.ris`: Zotero import file.
 - `artifacts/immunoglobulins_fibrosis_cli/immunoglobulins_fibrosis_demo_references.csl.json`: CSL JSON reference file.
 - `artifacts/immunoglobulins_fibrosis_cli/claim_support_report.md`: sentence-to-reference support map.
+- `artifacts/immunoglobulins_fibrosis_cli/reference_verification.json`: machine-readable reference and abstract evidence audit.
+- `artifacts/immunoglobulins_fibrosis_cli/verification_report.md`: human-readable verification summary.
 - `artifacts/immunoglobulins_fibrosis_cli/automation_summary.md`: latest run summary.
 
 ## Current validation status
 
 Manual Word/Zotero testing confirmed that the generated active fields are editable by the Zotero Word plugin. The CLI also verifies that the generated `.docx` contains the expected Zotero citation fields and one bibliography field.
+
+Reference verification has two levels: `metadata` checks DOI/PMID existence and bibliographic consistency through PubMed/Crossref; `abstract` adds abstract evidence packets for harness/LLM review of whether claims are actually supported.
 
 LibreOffice is not required for the Word-first workflow. If LibreOffice is installed, it can be used for visual export with `--render libreoffice`; dedicated automated Zotero-LibreOffice refresh should be added only after that integration endpoint has been verified against a real LibreOffice/Zotero setup.
 
