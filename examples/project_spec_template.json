@@ -1,0 +1,63 @@
+{
+  "slug": "replace_with_topic_slug",
+  "title": "Replace With Draft Title",
+  "active_subtitle": "Generated Zotero-active Word fields",
+  "placeholder_subtitle": "Fallback draft with visible Zotero placeholders",
+  "body_heading": "Draft Introduction",
+  "reference_heading": "References",
+  "output_dir": "artifacts/replace_with_topic_slug",
+  "zotero_tags": [
+    "CitationTool",
+    "replace with topic"
+  ],
+  "zotero_note": "<p>Imported by CitationTool.</p>",
+  "references": [
+    {
+      "id": "first-author-year",
+      "type": "article-journal",
+      "title": "Replace with verified title",
+      "container-title": "Replace with journal",
+      "container-title-short": "Replace with abbreviation",
+      "author": [
+        {
+          "family": "FirstAuthor",
+          "given": "Given"
+        }
+      ],
+      "issued": {
+        "date-parts": [
+          [
+            2026
+          ]
+        ]
+      },
+      "volume": "",
+      "issue": "",
+      "page": "",
+      "DOI": "",
+      "PMID": "",
+      "URL": ""
+    }
+  ],
+  "paragraphs": [
+    [
+      {
+        "text": "Replace with a precise citation-bearing claim "
+      },
+      {
+        "cite": "first-author-year"
+      },
+      {
+        "text": "."
+      }
+    ]
+  ],
+  "claims": [
+    {
+      "claim": "Replace with a precise citation-bearing claim.",
+      "support": "first-author-year",
+      "level": "Supported",
+      "note": "Replace with a short note explaining why this source supports the claim."
+    }
+  ]
+}
