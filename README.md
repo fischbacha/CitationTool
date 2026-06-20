@@ -2,6 +2,8 @@
 
 Prototype for generating Zotero-active Word drafts with verified references and claim-support reports.
 
+The primary workflow is Microsoft Word plus the Zotero Word plugin. LibreOffice is kept as an optional compatibility path for users who have LibreOffice and Zotero's LibreOffice plugin, and as an optional renderer/exporter for visual QA.
+
 ## Recommended command
 
 ```bash
@@ -16,6 +18,14 @@ For offline generation without touching Zotero:
 python3 -m citationtool.cli run examples/immunoglobulins_fibrosis_demo.json --no-zotero-import
 ```
 
+For optional visual QA:
+
+```bash
+python3 -m citationtool.cli run examples/immunoglobulins_fibrosis_demo.json --no-zotero-import --render auto
+```
+
+`--render auto` uses Quick Look on macOS when available, otherwise tries LibreOffice. Use `--render none` for pure generation, `--render quicklook` for macOS native preview output, or `--render libreoffice` for LibreOffice-based PDF/PNG export. Rendered files are written below `artifacts/.../rendered/` and are ignored by git.
+
 ## Main outputs
 
 - `artifacts/immunoglobulins_fibrosis_cli/immunoglobulins_fibrosis_demo_zotero_active.docx`: Zotero-active Word draft with generated `ADDIN ZOTERO_ITEM` citation fields and one `ADDIN ZOTERO_BIBL` bibliography field.
@@ -27,7 +37,9 @@ python3 -m citationtool.cli run examples/immunoglobulins_fibrosis_demo.json --no
 
 ## Current validation status
 
-Manual Word/Zotero testing confirmed that the generated active fields are editable by the Zotero Word plugin. The CLI also verifies that the generated `.docx` contains four Zotero citation fields and one bibliography field.
+Manual Word/Zotero testing confirmed that the generated active fields are editable by the Zotero Word plugin. The CLI also verifies that the generated `.docx` contains the expected Zotero citation fields and one bibliography field.
+
+LibreOffice is not required for the Word-first workflow. If LibreOffice is installed, it can be used for visual export with `--render libreoffice`; dedicated automated Zotero-LibreOffice refresh should be added only after that integration endpoint has been verified against a real LibreOffice/Zotero setup.
 
 ## Compatibility demo
 

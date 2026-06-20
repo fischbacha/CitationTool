@@ -7,6 +7,7 @@ import sys
 from pathlib import Path
 
 from .builder import ROOT, build_project, inspect_docx_fields, load_project, project_out_dir
+from .rendering import RenderResult, render_docx
 from .zotero import import_ris_into_zotero, request_zotero_word_refresh
 
 
@@ -23,6 +24,7 @@ def write_summary(
     field_check: dict,
     import_result: dict,
     refresh_result: dict | None,
+    render_result: RenderResult,
 ):
     summary = outputs.out_dir / "automation_summary.md"
     lines = [
@@ -61,6 +63,13 @@ def write_summary(
                 "Zotero accepted a Mac Word `Refresh` request for the active Zotero Word draft.",
             ]
         )
+
+    lines.extend(["", "## Visual Render", ""])
+    if render_result.skipped:
+        lines.append(f"Skipped: {render_result.reason}")
+    else:
+        lines.append(f"Rendered with `{render_result.renderer}` to `{repo_path(render_result.output)}`.")
+
     summary.write_text("\n".join(lines) + "\n", encoding="utf-8")
     return summary
 
@@ -97,7 +106,9 @@ def run_project(args) -> int:
         refresh_result = request_zotero_word_refresh(outputs.active_docx)
         print(f"Requested Zotero Word refresh for: {refresh_result['document']}")
 
-    summary = write_summary(project, outputs, field_check, import_result, refresh_result)
+    render_result = render_docx(outputs.active_docx, outputs.out_dir / "rendered", args.render)
+
+    summary = write_summary(project, outputs, field_check, import_result, refresh_result, render_result)
     print(f"Generated active Zotero Word draft: {outputs.active_docx}")
     print(f"Generated placeholder fallback draft: {outputs.placeholder_docx}")
     print(f"Generated RIS: {outputs.ris}")
@@ -113,6 +124,10 @@ def run_project(args) -> int:
         print(f"Zotero import skipped: {import_result.get('reason')}")
     else:
         print("Zotero import not requested.")
+    if render_result.skipped:
+        print(f"Visual render skipped: {render_result.reason}")
+    else:
+        print(f"Visual render ({render_result.renderer}): {render_result.output}")
     print(f"Summary: {summary}")
     return 0
 
@@ -136,6 +151,12 @@ def parse_args(argv: list[str] | None = None):
     run.add_argument("--open-word", action="store_true", help="Open the generated active Zotero Word draft.")
     run.add_argument("--open-placeholder-word", action="store_true", help="Open the generated placeholder fallback draft.")
     run.add_argument("--refresh-word", action="store_true", help="Ask Zotero's Mac Word integration endpoint to refresh the active draft.")
+    run.add_argument(
+        "--render",
+        choices=["none", "auto", "quicklook", "libreoffice"],
+        default="none",
+        help="Optionally render the active DOCX for visual QA. `auto` tries Quick Look on macOS and LibreOffice otherwise.",
+    )
     run.set_defaults(func=run_project)
 
     inspect = subparsers.add_parser("inspect", help="Count generated Zotero field markers in a DOCX.")

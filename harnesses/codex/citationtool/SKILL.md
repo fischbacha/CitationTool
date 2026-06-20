@@ -1,11 +1,13 @@
 ---
 name: citationtool
-description: Generate Zotero-active Word drafts from LLM-written biomedical or grant/paper introduction text, with verified references, RIS/CSL files, claim-support reports, and Zotero Word refresh validation using the local CitationTool CLI.
+description: Generate Zotero-active Word drafts from LLM-written biomedical or grant/paper introduction text, with verified references, RIS/CSL files, claim-support reports, Word/Zotero validation, and optional Quick Look or LibreOffice visual rendering using the local CitationTool CLI.
 ---
 
 # CitationTool
 
 Use this skill when the user wants a Word draft with Zotero-editable citations, a Zotero import library, or a claim-by-claim citation support report.
+
+Microsoft Word plus the Zotero Word plugin is the primary validation path. LibreOffice is optional for users who have Zotero's LibreOffice plugin or want LibreOffice-based visual export.
 
 ## Core Rule
 
@@ -28,7 +30,13 @@ python3 -m citationtool.cli inspect <active.docx>
 unzip -t <active.docx>
 ```
 
-5. Visually render the active DOCX if the environment supports it. If LibreOffice fails, use a platform renderer such as Quick Look and state the fallback.
+5. Visually render the active DOCX if the environment supports it:
+
+```bash
+python3 -m citationtool.cli run <spec.json> --no-zotero-import --render auto
+```
+
+On macOS, `auto` tries Quick Look first; otherwise it tries LibreOffice. If rendering is skipped or fails, state the reason and continue with field/archive validation.
 6. When the user wants live Zotero/Word handoff, run:
 
 ```bash
@@ -54,3 +62,4 @@ Before calling the result done, confirm:
 - claim report maps every substantive claim to a citation key
 - reference metadata includes DOI or PMID where available
 - Word/Zotero refresh succeeds or any blocker is reported clearly
+- visual render succeeds, is skipped intentionally, or any renderer blocker is reported clearly
