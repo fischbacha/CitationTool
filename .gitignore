@@ -1,0 +1,9 @@
+.DS_Store
+__pycache__/
+*.py[cod]
+
+# Local Word/Zotero/QA runtime outputs
+artifacts/**/~$*
+artifacts/**/zotero_import_result.json
+artifacts/**/rendered/
+artifacts/**/rendered_quicklook/
