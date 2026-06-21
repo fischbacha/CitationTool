@@ -76,7 +76,10 @@ The reusable CLI is the path to use for new topics.
 
 ## Harness adapters
 
+- `.opencode/skills/citationtool/SKILL.md`: OpenCode project-local skill.
+- `.opencode/commands/citationtool.md`: OpenCode `/citationtool` command wrapper.
 - `harnesses/codex/citationtool/SKILL.md`: repo-local Codex skill draft.
 - `harnesses/codex/citationtool/references/project-spec.md`: JSON spec contract for agents.
 - `harnesses/claude-code/citationtool.md`: Claude Code adapter prompt.
+- `harnesses/opencode/citationtool.md`: OpenCode adapter notes.
 - `examples/project_spec_template.json`: copyable starter spec for new topics.

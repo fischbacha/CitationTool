@@ -1,0 +1,98 @@
+---
+name: citationtool
+description: Generate Zotero-active Word drafts from biomedical or grant/paper introduction text. Use for CitationTool workflows that need Zotero-editable Word citations, RIS/CSL libraries, DOI/PMID verification, abstract-level support checks, claim-support reports, or reviewed drafts from the local CitationTool CLI.
+compatibility: opencode
+metadata:
+  target: word-zotero
+  domain: biomedical-writing
+---
+
+# CitationTool
+
+Use this skill when the user asks for a cited grant/paper introduction, Zotero-active Word draft, verified reference library, or citation-support audit.
+
+Microsoft Word plus the Zotero Word plugin is the primary editable-citation target. LibreOffice is optional for users who have Zotero's LibreOffice plugin or want LibreOffice-based rendering/export.
+
+## Core Rule
+
+Do not invent references. Write claims first, then attach only verified sources with DOI/PMID metadata and an explicit claim-support mapping.
+
+## Repo Root
+
+Run commands from the CitationTool repo root. Prefer the current workspace when it contains `citationtool/cli.py`; otherwise ask the user for the repo path.
+
+## Workflow
+
+1. Search PubMed/Crossref for a small defensible reference set with DOI/PMID metadata. Prefer 3-5 references for a demo draft and more only when the user asks for a longer realistic introduction.
+2. Draft concise introduction text with narrow citation-bearing claims.
+3. Build or update a CitationTool JSON project spec. For the required shape, read `harnesses/codex/citationtool/references/project-spec.md`.
+4. Build the draft with deterministic metadata verification:
+
+```bash
+python3 -m citationtool.cli run <spec.json> --no-zotero-import --verify metadata
+```
+
+5. For high-depth checking, fetch abstract evidence and generate `abstract_support_review.md`:
+
+```bash
+python3 -m citationtool.cli verify <spec.json> --depth abstract
+```
+
+Read `harnesses/codex/citationtool/references/support-review.md` before interpreting weak support labels.
+
+6. If high-depth checking finds weak claims with safer wording, create a separate reviewed spec and rebuilt draft:
+
+```bash
+python3 -m citationtool.cli apply-review <spec.json> --verification <artifact-dir>/reference_verification.json --build
+```
+
+Use the reviewed spec/draft only after checking `apply_review_report.md`. Report any `not_assessable` claims that still require full-text or human review.
+
+7. Inspect the generated active DOCX:
+
+```bash
+python3 -m citationtool.cli inspect <active.docx>
+unzip -t <active.docx>
+```
+
+8. Optionally render the active DOCX if the environment supports it:
+
+```bash
+python3 -m citationtool.cli run <spec.json> --no-zotero-import --verify none --render auto
+```
+
+On macOS, `auto` tries Quick Look first; otherwise it tries LibreOffice. If rendering is skipped or fails, state the reason and continue with field/archive validation.
+
+9. When the user explicitly wants live Zotero/Word handoff, run:
+
+```bash
+python3 -m citationtool.cli run <spec.json> --refresh-word
+```
+
+This imports references through Zotero's local connector unless `--no-zotero-import` is passed, then asks Zotero's Mac Word integration endpoint to refresh the active Word draft.
+
+## Expected Outputs
+
+- Zotero-active `.docx` with `ADDIN ZOTERO_ITEM` citation fields and one `ADDIN ZOTERO_BIBL` bibliography field.
+- Placeholder fallback `.docx`.
+- RIS and CSL JSON reference files.
+- `claim_support_report.md`.
+- `reference_verification.json`.
+- `verification_report.md`.
+- `abstract_support_review.md` for high-depth runs.
+- Reviewed JSON spec and `apply_review_report.md` when `apply-review` is used.
+- `automation_summary.md`.
+
+## Validation Bar
+
+Before calling the result done, confirm:
+
+- active DOCX contains the expected number of `ADDIN ZOTERO_ITEM` fields and one `ADDIN ZOTERO_BIBL` field
+- DOCX archive integrity passes with `unzip -t`
+- claim report maps every substantive claim to a citation key
+- reference metadata includes DOI or PMID where available
+- `verification_report.md` has no failed metadata checks, or failures are reported clearly
+- abstract-depth support labels and safer-claim suggestions are reviewed when high-depth support checking is requested
+- `apply_review_report.md` explains every automatic rewrite or skipped weak claim when reviewed output is used
+- Word/Zotero refresh succeeds or any blocker is reported clearly
+- visual render succeeds, is skipped intentionally, or any renderer blocker is reported clearly
