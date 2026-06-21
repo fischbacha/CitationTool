@@ -53,6 +53,9 @@ def write_summary(
             f"Verification depth `{verification_result['depth']}` finished with status "
             f"`{verification_result['overallStatus']}`.{report_text}"
         )
+        support_review = verification_result.get("paths", {}).get("supportReview")
+        if support_review:
+            lines.append(f"Abstract support review: `{repo_path(Path(support_review))}`.")
     else:
         lines.append("Skipped: verification was not requested.")
 
@@ -161,6 +164,9 @@ def run_project(args) -> int:
             "Reference verification: "
             f"{verification_result['overallStatus']} ({verification_result['depth']})"
         )
+        support_review = verification_result.get("paths", {}).get("supportReview")
+        if support_review:
+            print(f"Abstract support review: {support_review}")
     if import_result.get("imported"):
         print(f"Imported {len(import_result.get('items', []))} references into Zotero target: {import_result['target']['name']}")
     elif import_result.get("skipped"):
@@ -188,6 +194,9 @@ def verify_references(args) -> int:
     print(f"Reference verification: {result['overallStatus']} ({result['depth']})")
     print(f"JSON: {result['paths']['json']}")
     print(f"Report: {result['paths']['report']}")
+    support_review = result.get("paths", {}).get("supportReview")
+    if support_review:
+        print(f"Abstract support review: {support_review}")
     if result["overallStatus"] == "failed" and not args.warn_only:
         return 2
     return 0
@@ -210,7 +219,7 @@ def parse_args(argv: list[str] | None = None):
         "--verify",
         choices=["none", "metadata", "abstract"],
         default="metadata",
-        help="Verify references before generation. Metadata checks DOI/PMID; abstract also fetches evidence for claim review.",
+        help="Verify references before generation. Metadata checks DOI/PMID; abstract adds abstract-level support triage.",
     )
     run.add_argument("--verify-warn-only", action="store_true", help="Continue generation even if verification fails.")
     run.add_argument(
@@ -229,7 +238,7 @@ def parse_args(argv: list[str] | None = None):
     inspect.add_argument("docx", type=Path)
     inspect.set_defaults(func=inspect_docx)
 
-    verify = subparsers.add_parser("verify", help="Verify DOI/PMID metadata and optionally fetch abstract evidence.")
+    verify = subparsers.add_parser("verify", help="Verify DOI/PMID metadata and optionally run abstract-level support triage.")
     verify.add_argument("spec", type=Path, help="Path to a CitationTool JSON project spec.")
     verify.add_argument("--out", type=Path, help="Override output directory.")
     verify.add_argument("--depth", choices=["metadata", "abstract"], default="metadata", help="Verification depth.")

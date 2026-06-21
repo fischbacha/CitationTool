@@ -56,12 +56,14 @@ STOPWORDS = {
 class VerificationPaths:
     json: Path
     report: Path
+    support_review: Path
 
 
 def verification_paths(out_dir: Path) -> VerificationPaths:
     return VerificationPaths(
         json=out_dir / "reference_verification.json",
         report=out_dir / "verification_report.md",
+        support_review=out_dir / "abstract_support_review.md",
     )
 
 
@@ -128,20 +130,126 @@ def title_similarity(expected: str, observed: str) -> float:
 
 
 def best_candidate_snippets(claim: str, abstract: str, limit: int = 2) -> list[str]:
+    return [item["snippet"] for item in scored_candidate_snippets(claim, abstract, limit)]
+
+
+def scored_candidate_snippets(claim: str, abstract: str, limit: int = 2) -> list[dict[str, Any]]:
     claim_tokens = tokens(claim)
     if not claim_tokens:
         return []
-    scored: list[tuple[float, str]] = []
+    scored: list[dict[str, Any]] = []
     for sentence in split_sentences(abstract):
         sentence_tokens = tokens(sentence)
         if not sentence_tokens:
             continue
-        overlap = len(claim_tokens & sentence_tokens)
+        matched_terms = claim_tokens & sentence_tokens
+        overlap = len(matched_terms)
         score = overlap / max(len(claim_tokens), 1)
         if score:
-            scored.append((score, sentence))
-    scored.sort(key=lambda item: item[0], reverse=True)
-    return [sentence for _, sentence in scored[:limit]]
+            scored.append(
+                {
+                    "score": round(score, 3),
+                    "snippet": sentence,
+                    "matchedTerms": sorted(matched_terms),
+                }
+            )
+    scored.sort(key=lambda item: item["score"], reverse=True)
+    return scored[:limit]
+
+
+def sentence_like(value: str) -> str:
+    value = re.sub(r"\s+", " ", value).strip()
+    if not value:
+        return value
+    return value if value[-1] in ".!?" else f"{value}."
+
+
+def snippet_to_safer_claim(snippet: str) -> str:
+    snippet = re.sub(r"\s+", " ", snippet).strip()
+    replacements = [
+        (r"^we also describe how\s+", ""),
+        (r"^we describe how\s+", ""),
+        (r"^we also describe\s+", "the cited abstract describes "),
+        (r"^we describe\s+", "the cited abstract describes "),
+        (r"^we discuss how\s+", ""),
+        (r"^we discuss\s+", "the cited abstract discusses "),
+        (r"^this review\s+", "the cited review "),
+        (r"^here,?\s+we\s+", "the authors "),
+    ]
+    for pattern, replacement in replacements:
+        snippet = re.sub(pattern, replacement, snippet, flags=re.I)
+    if snippet:
+        snippet = snippet[0].upper() + snippet[1:]
+    return sentence_like(snippet)
+
+
+def safer_claim_suggestion(status: str, snippets: list[str]) -> str:
+    if status == "supported":
+        return ""
+    if status == "partially_supported" and snippets:
+        return f"Candidate safer wording: {snippet_to_safer_claim(snippets[0])}"
+    if status == "unsupported" and snippets:
+        return f"Replace the source or use a narrower claim visible in the abstract: {snippet_to_safer_claim(snippets[0])}"
+    return "Replace the citation or inspect the full text before using this claim."
+
+
+def assess_abstract_support(claim: str, abstract: str) -> dict[str, Any]:
+    claim_terms = tokens(claim)
+    abstract_terms = tokens(abstract)
+    snippets = scored_candidate_snippets(claim, abstract)
+    snippet_text = [item["snippet"] for item in snippets]
+
+    if not claim_terms or not abstract_terms:
+        return {
+            "status": "not_assessable",
+            "confidence": "low",
+            "score": 0.0,
+            "coverage": 0.0,
+            "bestSnippetScore": 0.0,
+            "matchedTerms": [],
+            "missingTerms": sorted(claim_terms),
+            "reason": "The claim or abstract did not contain enough assessable terms.",
+            "saferClaim": safer_claim_suggestion("not_assessable", snippet_text),
+            "scoredSnippets": snippets,
+        }
+
+    matched_terms = claim_terms & abstract_terms
+    missing_terms = claim_terms - abstract_terms
+    coverage = len(matched_terms) / max(len(claim_terms), 1)
+    best_score = snippets[0]["score"] if snippets else 0.0
+    claim_norm = normalize_text(claim)
+    abstract_norm = normalize_text(abstract)
+
+    if claim_norm and claim_norm in abstract_norm:
+        status = "supported"
+        confidence = "high"
+        reason = "The normalized claim appears directly in the abstract."
+    elif coverage >= 0.75 and best_score >= 0.55:
+        status = "supported"
+        confidence = "medium"
+        reason = "Most claim terms are present in the abstract and the closest sentence has strong overlap."
+    elif coverage >= 0.45 or best_score >= 0.3:
+        status = "partially_supported"
+        confidence = "low"
+        reason = "The abstract overlaps with the claim, but the claim may be broader, stronger, or more specific than the abstract evidence."
+    else:
+        status = "unsupported"
+        confidence = "low"
+        reason = "The abstract has little visible support for the claim at the wording level."
+
+    score = max(coverage, best_score)
+    return {
+        "status": status,
+        "confidence": confidence,
+        "score": round(score, 3),
+        "coverage": round(coverage, 3),
+        "bestSnippetScore": round(best_score, 3),
+        "matchedTerms": sorted(matched_terms),
+        "missingTerms": sorted(missing_terms),
+        "reason": reason,
+        "saferClaim": safer_claim_suggestion(status, snippet_text),
+        "scoredSnippets": snippets,
+    }
 
 
 class MetadataClient:
@@ -427,7 +535,9 @@ def verify_claims(project: dict[str, Any], reference_results: dict[str, dict[str
                     {
                         "support": support_id,
                         "status": "not_assessable",
+                        "confidence": "none",
                         "reason": "Citation key was not found in references.",
+                        "saferClaim": "Fix the citation key or choose a verified reference before using this claim.",
                     }
                 )
                 continue
@@ -435,8 +545,10 @@ def verify_claims(project: dict[str, Any], reference_results: dict[str, dict[str
                 evidence.append(
                     {
                         "support": support_id,
-                        "status": "not_assessed",
-                        "reason": "Run with --depth abstract or --verify abstract for abstract evidence.",
+                        "status": "metadata_only",
+                        "confidence": "none",
+                        "reason": "Reference metadata was checked, but abstract-level claim support was not requested.",
+                        "saferClaim": "Run with --depth abstract or --verify abstract before relying on this claim-support mapping.",
                     }
                 )
                 continue
@@ -446,21 +558,32 @@ def verify_claims(project: dict[str, Any], reference_results: dict[str, dict[str
                     {
                         "support": support_id,
                         "status": "not_assessable",
+                        "confidence": "none",
                         "reason": "No abstract was available from PubMed or Crossref.",
+                        "saferClaim": "Inspect the full text manually, replace the citation with one that has an abstract, or soften/remove the claim.",
                     }
                 )
                 continue
             abstract = abstract_source.get("abstract", "")
+            assessment = assess_abstract_support(claim.get("claim", ""), abstract)
             evidence.append(
                 {
                     "support": support_id,
-                    "status": "needs_llm_review",
-                    "reason": "Abstract fetched; semantic support classification should be performed by the harness/LLM.",
+                    "status": assessment["status"],
+                    "confidence": assessment["confidence"],
+                    "reason": assessment["reason"],
+                    "score": assessment["score"],
+                    "coverage": assessment["coverage"],
+                    "bestSnippetScore": assessment["bestSnippetScore"],
+                    "matchedTerms": assessment["matchedTerms"],
+                    "missingTerms": assessment["missingTerms"],
+                    "saferClaim": assessment["saferClaim"],
                     "source": abstract_source.get("source"),
                     "url": abstract_source.get("url"),
                     "title": abstract_source.get("title"),
                     "abstract": abstract,
-                    "candidateSnippets": best_candidate_snippets(claim.get("claim", ""), abstract),
+                    "candidateSnippets": [item["snippet"] for item in assessment["scoredSnippets"]],
+                    "scoredCandidateSnippets": assessment["scoredSnippets"],
                 }
             )
         claim_results.append(
@@ -482,7 +605,7 @@ def overall_status(reference_results: list[dict[str, Any]], claim_results: list[
     if depth == "abstract":
         for claim in claim_results:
             for evidence in claim.get("evidence", []):
-                if evidence.get("status") == "not_assessable":
+                if evidence.get("status") in {"not_assessable", "partially_supported", "unsupported"}:
                     return "warnings"
     if any(result.get("status") == "partial" for result in reference_results):
         return "warnings"
@@ -531,6 +654,9 @@ def write_markdown_report(result: dict[str, Any], path: Path):
                 note = evidence.get("reason", "")
                 if snippets:
                     note = f"{note} Candidate snippet: {snippets[0]}"
+                safer_claim = evidence.get("saferClaim", "")
+                if safer_claim:
+                    note = f"{note} Suggested action: {safer_claim}"
                 lines.append(
                     f"| {md_escape(claim.get('claim', ''))} | `{md_escape(evidence.get('support', ''))}` | "
                     f"`{md_escape(evidence.get('status', ''))}` | {md_escape(note)} |"
@@ -542,10 +668,69 @@ def write_markdown_report(result: dict[str, Any], path: Path):
             "## Interpretation",
             "",
             "- `metadata` verification checks DOI/PMID existence and basic bibliographic consistency.",
-            "- `abstract` verification fetches abstract evidence packets for harness/LLM review.",
-            "- CLI abstract mode does not make final semantic support judgments by keyword overlap alone.",
+            "- `abstract` verification adds conservative abstract-level support triage and safer-claim suggestions.",
+            "- Abstract triage uses visible abstract wording and token overlap; human or LLM review is still needed for final semantic support judgments.",
         ]
     )
+    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
+def write_support_review(result: dict[str, Any], path: Path):
+    lines = [
+        "# Abstract Support Review",
+        "",
+        f"Project: `{result['project']}`",
+        "",
+        "This is an abstract-level review. It is useful for triage, but it does not replace a human or LLM review of the full article when the claim depends on methods, subgroup analyses, figures, tables, or nuanced causality.",
+        "",
+        "## Status Guide",
+        "",
+        "- `supported`: the abstract wording visibly supports the claim as written.",
+        "- `partially_supported`: the abstract supports the general direction, but the claim is broader, stronger, or more specific than the visible evidence.",
+        "- `unsupported`: the abstract does not visibly support the claim; replace the source or rewrite the claim.",
+        "- `not_assessable`: no usable abstract or citation record was available.",
+        "- `metadata_only`: DOI/PMID metadata was checked, but abstract-level checking was not requested.",
+        "",
+    ]
+
+    claims = result.get("claims", [])
+    if not claims:
+        lines.extend(["No claim-support entries were provided.", ""])
+    else:
+        lines.extend(
+            [
+                "## Claim Review",
+                "",
+                "| Claim | Citation key | Support status | Confidence | Evidence pointer | Safer claim or action |",
+                "|---|---|---|---|---|---|",
+            ]
+        )
+        weak_items = []
+        for claim in claims:
+            for evidence in claim.get("evidence", []):
+                snippets = evidence.get("candidateSnippets") or []
+                evidence_pointer = snippets[0] if snippets else evidence.get("reason", "")
+                status = evidence.get("status", "")
+                safer_claim = evidence.get("saferClaim", "")
+                if status in {"partially_supported", "unsupported", "not_assessable", "metadata_only"}:
+                    weak_items.append((claim.get("claim", ""), evidence.get("support", ""), status, safer_claim))
+                lines.append(
+                    f"| {md_escape(claim.get('claim', ''))} | `{md_escape(evidence.get('support', ''))}` | "
+                    f"`{md_escape(status)}` | `{md_escape(evidence.get('confidence', ''))}` | "
+                    f"{md_escape(evidence_pointer)} | {md_escape(safer_claim or 'No rewrite suggested.')} |"
+                )
+
+        lines.extend(["", "## Needs Review", ""])
+        if weak_items:
+            for claim_text, support, status, safer_claim in weak_items:
+                lines.append(
+                    f"- `{md_escape(status)}` for `{md_escape(support)}`: {md_escape(claim_text)} "
+                    f"Action: {md_escape(safer_claim)}"
+                )
+        else:
+            lines.append("No weak abstract-level support items were detected by the automatic triage.")
+        lines.append("")
+
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
@@ -566,6 +751,13 @@ def verify_project(
     references = [verify_reference(ref, client) for ref in project.get("references", [])]
     reference_results = {ref["id"]: ref for ref in references}
     claims = verify_claims(project, reference_results, depth)
+    output_paths = {
+        "json": str(paths.json),
+        "report": str(paths.report),
+    }
+    if depth == "abstract":
+        output_paths["supportReview"] = str(paths.support_review)
+
     result = {
         "project": project["slug"],
         "depth": depth,
@@ -573,11 +765,10 @@ def verify_project(
         "overallStatus": overall_status(references, claims, depth),
         "references": references,
         "claims": claims,
-        "paths": {
-            "json": str(paths.json),
-            "report": str(paths.report),
-        },
+        "paths": output_paths,
     }
     paths.json.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
     write_markdown_report(result, paths.report)
+    if depth == "abstract":
+        write_support_review(result, paths.support_review)
     return result

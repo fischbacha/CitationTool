@@ -147,14 +147,64 @@ class VerificationTests(unittest.TestCase):
             result = verify_project(project, Path(tmp), depth="abstract", client=client)
             json_path = Path(result["paths"]["json"])
             report_path = Path(result["paths"]["report"])
+            support_review_path = Path(result["paths"]["supportReview"])
             self.assertTrue(json_path.exists())
             self.assertTrue(report_path.exists())
+            self.assertTrue(support_review_path.exists())
             saved = json.loads(json_path.read_text(encoding="utf-8"))
 
         evidence = saved["claims"][0]["evidence"][0]
         self.assertEqual(result["overallStatus"], "passed")
-        self.assertEqual(evidence["status"], "needs_llm_review")
+        self.assertEqual(evidence["status"], "supported")
+        self.assertEqual(evidence["confidence"], "high")
         self.assertTrue(evidence["candidateSnippets"])
+        self.assertTrue(evidence["scoredCandidateSnippets"])
+
+    def test_metadata_depth_marks_claims_as_metadata_only(self):
+        project = {
+            "slug": "metadata_claims",
+            "references": [sample_ref()],
+            "paragraphs": [[{"text": "Claim "}, {"cite": "smith-2024"}, {"text": "."}]],
+            "claims": [{"claim": "B cells aggravate metabolic liver inflammation.", "support": "smith-2024"}],
+        }
+        client = StubClient(
+            pubmed_by_pmid={"123456": pubmed_record()},
+            crossref_by_doi={"10.1000/example": crossref_record()},
+        )
+
+        with tempfile.TemporaryDirectory() as tmp:
+            result = verify_project(project, Path(tmp), depth="metadata", client=client)
+
+        evidence = result["claims"][0]["evidence"][0]
+        self.assertEqual(evidence["status"], "metadata_only")
+        self.assertNotIn("supportReview", result["paths"])
+
+    def test_weak_abstract_support_gets_safer_claim_suggestion(self):
+        project = {
+            "slug": "weak_support",
+            "references": [sample_ref()],
+            "paragraphs": [[{"text": "Claim "}, {"cite": "smith-2024"}, {"text": "."}]],
+            "claims": [
+                {
+                    "claim": "B cells drive liver fibrosis, cirrhosis, and hepatocellular carcinoma in human NASH.",
+                    "support": "smith-2024",
+                }
+            ],
+        }
+        client = StubClient(
+            pubmed_by_pmid={"123456": pubmed_record(abstract="B cells are associated with liver inflammation in NASH.")},
+            crossref_by_doi={"10.1000/example": crossref_record()},
+        )
+
+        with tempfile.TemporaryDirectory() as tmp:
+            result = verify_project(project, Path(tmp), depth="abstract", client=client)
+            review = Path(result["paths"]["supportReview"]).read_text(encoding="utf-8")
+
+        evidence = result["claims"][0]["evidence"][0]
+        self.assertEqual(result["overallStatus"], "warnings")
+        self.assertEqual(evidence["status"], "partially_supported")
+        self.assertIn("Candidate safer wording", evidence["saferClaim"])
+        self.assertIn("partially_supported", review)
 
     def test_pubmed_parser_prefers_journal_issue_year(self):
         xml = """<?xml version="1.0" ?>

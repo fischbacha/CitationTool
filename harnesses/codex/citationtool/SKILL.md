@@ -26,7 +26,7 @@ Run all CLI commands from the CitationTool repo root. Prefer the current workspa
 python3 -m citationtool.cli run <spec.json> --no-zotero-import --verify metadata
 ```
 
-5. For high-depth checking, fetch abstract evidence and write `abstract_support_review.md`. Read `references/support-review.md` for the review rubric.
+5. For high-depth checking, fetch abstract evidence and generate `abstract_support_review.md`. Read `references/support-review.md` for how to interpret and revise weak claims.
 
 ```bash
 python3 -m citationtool.cli verify <spec.json> --depth abstract
@@ -74,6 +74,6 @@ Before calling the result done, confirm:
 - claim report maps every substantive claim to a citation key
 - reference metadata includes DOI or PMID where available
 - `verification_report.md` has no failed metadata checks, or failures are reported clearly
-- abstract-depth evidence is reviewed by the harness/LLM when the user requests high-depth support checking
+- abstract-depth support labels and safer-claim suggestions are reviewed by the harness/LLM when the user requests high-depth support checking
 - Word/Zotero refresh succeeds or any blocker is reported clearly
 - visual render succeeds, is skipped intentionally, or any renderer blocker is reported clearly

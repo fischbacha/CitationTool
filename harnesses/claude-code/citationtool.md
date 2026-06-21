@@ -19,7 +19,7 @@ Microsoft Word plus the Zotero Word plugin is the primary editable-citation targ
 python3 -m citationtool.cli run <spec.json> --no-zotero-import --verify metadata
 ```
 
-5. For deep support checking, fetch abstract evidence and use the LLM to classify each claim as `supported`, `partially_supported`, `unsupported`, or `not_assessable`:
+5. For deep support checking, fetch abstract evidence and generate automatic support labels plus safer-claim suggestions:
 
 ```bash
 python3 -m citationtool.cli verify <spec.json> --depth abstract
@@ -49,7 +49,7 @@ python3 -m citationtool.cli run <spec.json> --refresh-word
 - Do not invent references.
 - Every substantive claim needs a claim-support entry.
 - Prefer DOI/PMID metadata.
-- Treat abstract mode as an evidence packet plus LLM judgment, not as a keyword-only answer.
+- Treat abstract mode as automatic abstract-level triage plus LLM judgment, not as a keyword-only final answer.
 - Report unsupported or weakly supported claims instead of hiding them.
 - The active Word draft is the primary deliverable; the placeholder draft is fallback.
 - Report whether rendering used Quick Look, LibreOffice, or was intentionally skipped.
