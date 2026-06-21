@@ -8,6 +8,7 @@ from pathlib import Path
 
 from .builder import ROOT, build_project, inspect_docx_fields, load_project, project_out_dir
 from .rendering import RenderResult, render_docx
+from .review import DEFAULT_APPLY_STATUSES, apply_review, load_json
 from .verification import verify_project
 from .zotero import import_ris_into_zotero, request_zotero_word_refresh
 
@@ -202,6 +203,56 @@ def verify_references(args) -> int:
     return 0
 
 
+def apply_review_command(args) -> int:
+    raw_project = load_json(args.spec)
+    loaded_project = load_project(args.spec)
+    out_dir = project_out_dir(loaded_project, args.out)
+
+    if args.verification:
+        verification_result = load_json(args.verification)
+    else:
+        verification_result = verify_project(loaded_project, out_dir, depth="abstract", email=args.contact_email)
+
+    if verification_result["overallStatus"] == "failed" and not args.allow_failed_verification:
+        print(
+            "Reference verification failed. Fix metadata/network issues first, or rerun with "
+            "--allow-failed-verification to produce a flagged reviewed spec."
+        )
+        print(f"Report: {verification_result['paths']['report']}")
+        return 2
+
+    suffix = args.suffix.strip("_")
+    out_spec = args.out_spec or out_dir / f"{loaded_project['slug']}_{suffix or 'reviewed'}.json"
+    report = args.report or out_spec.with_name("apply_review_report.md")
+    apply_statuses = set(args.apply_status or sorted(DEFAULT_APPLY_STATUSES))
+    result = apply_review(
+        raw_project=raw_project,
+        loaded_project=loaded_project,
+        verification_result=verification_result,
+        out_spec=out_spec,
+        report_path=report,
+        suffix=suffix,
+        apply_statuses=apply_statuses,
+    )
+
+    print(f"Reviewed spec: {result.out_spec}")
+    print(f"Apply-review report: {result.report}")
+    print(f"Actions: {len(result.actions)}")
+
+    if args.build:
+        build_out_dir = project_out_dir(result.project, args.build_out)
+        outputs = build_project(result.project, build_out_dir)
+        field_check = inspect_docx_fields(outputs.active_docx)
+        print(f"Generated active Zotero Word draft: {outputs.active_docx}")
+        print(f"Generated placeholder fallback draft: {outputs.placeholder_docx}")
+        print(
+            "Field self-check: "
+            f"{field_check['citationFields']} citation fields, "
+            f"{field_check['bibliographyFields']} bibliography field"
+        )
+    return 0
+
+
 def parse_args(argv: list[str] | None = None):
     parser = argparse.ArgumentParser(description="Generate Zotero-active Word drafts from CitationTool project specs.")
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -248,6 +299,39 @@ def parse_args(argv: list[str] | None = None):
         help="Contact email for polite PubMed/Crossref API use. Can also use CITATIONTOOL_CONTACT_EMAIL.",
     )
     verify.set_defaults(func=verify_references)
+
+    apply_parser = subparsers.add_parser(
+        "apply-review",
+        help="Apply abstract support review suggestions to a revised project spec.",
+    )
+    apply_parser.add_argument("spec", type=Path, help="Path to the original CitationTool JSON project spec.")
+    apply_parser.add_argument(
+        "--verification",
+        type=Path,
+        help="Existing reference_verification.json. If omitted, abstract-depth verification is run first.",
+    )
+    apply_parser.add_argument("--out", type=Path, help="Output directory for verification/default reviewed spec.")
+    apply_parser.add_argument("--out-spec", type=Path, help="Path for the revised JSON project spec.")
+    apply_parser.add_argument("--report", type=Path, help="Path for apply_review_report.md.")
+    apply_parser.add_argument("--suffix", default="reviewed", help="Suffix for revised slug/output_dir.")
+    apply_parser.add_argument(
+        "--apply-status",
+        action="append",
+        choices=sorted(DEFAULT_APPLY_STATUSES),
+        help="Evidence status to rewrite. Can be passed more than once; default rewrites partially_supported and unsupported.",
+    )
+    apply_parser.add_argument(
+        "--allow-failed-verification",
+        action="store_true",
+        help="Write a flagged reviewed spec even when metadata verification failed.",
+    )
+    apply_parser.add_argument("--build", action="store_true", help="Build Word/RIS/CSL outputs from the revised spec.")
+    apply_parser.add_argument("--build-out", type=Path, help="Override build output directory for --build.")
+    apply_parser.add_argument(
+        "--contact-email",
+        help="Contact email for polite PubMed/Crossref API use when --verification is omitted.",
+    )
+    apply_parser.set_defaults(func=apply_review_command)
 
     return parser.parse_args(argv)
 

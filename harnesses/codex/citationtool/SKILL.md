@@ -32,21 +32,29 @@ python3 -m citationtool.cli run <spec.json> --no-zotero-import --verify metadata
 python3 -m citationtool.cli verify <spec.json> --depth abstract
 ```
 
-6. Inspect the generated active DOCX:
+6. If high-depth checking finds weak claims with safer wording, create a separate reviewed spec and rebuilt draft:
+
+```bash
+python3 -m citationtool.cli apply-review <spec.json> --verification <artifact-dir>/reference_verification.json --build
+```
+
+Use the reviewed spec/draft for delivery when the rewrites are appropriate. Report any `not_assessable` claims that still require full-text or human review.
+
+7. Inspect the generated active DOCX:
 
 ```bash
 python3 -m citationtool.cli inspect <active.docx>
 unzip -t <active.docx>
 ```
 
-7. Visually render the active DOCX if the environment supports it:
+8. Visually render the active DOCX if the environment supports it:
 
 ```bash
 python3 -m citationtool.cli run <spec.json> --no-zotero-import --verify none --render auto
 ```
 
 On macOS, `auto` tries Quick Look first; otherwise it tries LibreOffice. If rendering is skipped or fails, state the reason and continue with field/archive validation.
-8. When the user explicitly wants live Zotero/Word handoff, run:
+9. When the user explicitly wants live Zotero/Word handoff, run:
 
 ```bash
 python3 -m citationtool.cli run <spec.json> --refresh-word
@@ -63,6 +71,7 @@ This imports references through Zotero's local connector unless `--no-zotero-imp
 - `reference_verification.json`.
 - `verification_report.md`.
 - `abstract_support_review.md` for high-depth runs.
+- reviewed JSON spec and `apply_review_report.md` when `apply-review` is used.
 - `automation_summary.md`.
 
 ## Validation Bar
@@ -75,5 +84,6 @@ Before calling the result done, confirm:
 - reference metadata includes DOI or PMID where available
 - `verification_report.md` has no failed metadata checks, or failures are reported clearly
 - abstract-depth support labels and safer-claim suggestions are reviewed by the harness/LLM when the user requests high-depth support checking
+- `apply_review_report.md` explains every automatic rewrite or skipped weak claim when reviewed output is used
 - Word/Zotero refresh succeeds or any blocker is reported clearly
 - visual render succeeds, is skipped intentionally, or any renderer blocker is reported clearly

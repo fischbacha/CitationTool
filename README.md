@@ -26,6 +26,14 @@ python3 -m citationtool.cli verify examples/immunoglobulins_fibrosis_demo.json -
 
 `metadata` verification is deterministic and checks that DOI/PMID metadata resolves and matches the spec. `abstract` verification also fetches PubMed/Crossref abstract evidence, labels each claim as `supported`, `partially_supported`, `unsupported`, or `not_assessable`, and suggests safer wording when the visible abstract evidence is weak. This is still an abstract-level triage step; human or LLM review should confirm nuanced claims against the full article when needed.
 
+To turn weak abstract-support suggestions into a separate reviewed draft:
+
+```bash
+python3 -m citationtool.cli apply-review examples/immunoglobulins_fibrosis_demo.json --build
+```
+
+`apply-review` runs abstract verification when needed, writes a `_reviewed` JSON spec, records every rewrite in `apply_review_report.md`, and can rebuild Zotero-active Word/RIS/CSL outputs from the revised spec. It rewrites only claims with candidate safer wording; claims that require full-text review are flagged but not silently changed.
+
 For optional visual QA:
 
 ```bash
@@ -44,13 +52,15 @@ python3 -m citationtool.cli run examples/immunoglobulins_fibrosis_demo.json --no
 - `artifacts/immunoglobulins_fibrosis_cli/reference_verification.json`: machine-readable reference and abstract evidence audit.
 - `artifacts/immunoglobulins_fibrosis_cli/verification_report.md`: human-readable verification summary.
 - `artifacts/immunoglobulins_fibrosis_cli/abstract_support_review.md`: high-depth abstract support triage with safer-claim suggestions.
+- `artifacts/immunoglobulins_fibrosis_cli/immunoglobulins_fibrosis_demo_reviewed.json`: reviewed project spec produced by `apply-review`.
+- `artifacts/immunoglobulins_fibrosis_cli/apply_review_report.md`: audit log of applied and skipped support-review suggestions.
 - `artifacts/immunoglobulins_fibrosis_cli/automation_summary.md`: latest run summary.
 
 ## Current validation status
 
 Manual Word/Zotero testing confirmed that the generated active fields are editable by the Zotero Word plugin. The CLI also verifies that the generated `.docx` contains the expected Zotero citation fields and one bibliography field.
 
-Reference verification has two levels: `metadata` checks DOI/PMID existence and bibliographic consistency through PubMed/Crossref; `abstract` adds automatic abstract-level support triage plus a review file for harness/LLM follow-up and safer rewrites.
+Reference verification has two levels: `metadata` checks DOI/PMID existence and bibliographic consistency through PubMed/Crossref; `abstract` adds automatic abstract-level support triage plus a review file for harness/LLM follow-up and safer rewrites. `apply-review` can then create a separate reviewed spec and regenerated Word draft from the safer wording candidates.
 
 LibreOffice is not required for the Word-first workflow. If LibreOffice is installed, it can be used for visual export with `--render libreoffice`; dedicated automated Zotero-LibreOffice refresh should be added only after that integration endpoint has been verified against a real LibreOffice/Zotero setup.
 

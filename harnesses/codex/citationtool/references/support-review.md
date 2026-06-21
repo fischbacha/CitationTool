@@ -27,4 +27,12 @@ Confirm that `abstract_support_review.md` contains:
 
 If any claim is `partially_supported`, `unsupported`, `not_assessable`, or `metadata_only`, either revise the JSON spec/draft and rerun CitationTool, or report the limitation clearly.
 
+To apply rewrite candidates into a separate reviewed spec and rebuilt draft, run:
+
+```bash
+python3 -m citationtool.cli apply-review <spec.json> --verification <artifact-dir>/reference_verification.json --build
+```
+
+Check `apply_review_report.md` afterward. The command rewrites only weak claims with candidate safer wording; `not_assessable` claims are flagged for full-text or human review.
+
 Do not treat automatic token overlap as final support. Candidate snippets are evidence pointers, and the harness/LLM should still make the final judgment before a claim is presented as supported.

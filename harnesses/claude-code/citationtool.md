@@ -25,20 +25,28 @@ python3 -m citationtool.cli run <spec.json> --no-zotero-import --verify metadata
 python3 -m citationtool.cli verify <spec.json> --depth abstract
 ```
 
-6. Validate:
+6. If weak claims have safer wording, generate a separate reviewed spec and rebuilt draft:
+
+```bash
+python3 -m citationtool.cli apply-review <spec.json> --verification <artifact-dir>/reference_verification.json --build
+```
+
+Use the reviewed draft only after checking `apply_review_report.md`; report any `not_assessable` claims that still need full-text review.
+
+7. Validate:
 
 ```bash
 python3 -m citationtool.cli inspect <active.docx>
 unzip -t <active.docx>
 ```
 
-7. Optional visual QA:
+8. Optional visual QA:
 
 ```bash
 python3 -m citationtool.cli run <spec.json> --no-zotero-import --verify none --render auto
 ```
 
-8. For live Zotero/Word handoff:
+9. For live Zotero/Word handoff:
 
 ```bash
 python3 -m citationtool.cli run <spec.json> --refresh-word
@@ -50,6 +58,7 @@ python3 -m citationtool.cli run <spec.json> --refresh-word
 - Every substantive claim needs a claim-support entry.
 - Prefer DOI/PMID metadata.
 - Treat abstract mode as automatic abstract-level triage plus LLM judgment, not as a keyword-only final answer.
+- Treat apply-review output as an auditable draft revision, not as an invisible correction.
 - Report unsupported or weakly supported claims instead of hiding them.
 - The active Word draft is the primary deliverable; the placeholder draft is fallback.
 - Report whether rendering used Quick Look, LibreOffice, or was intentionally skipped.
