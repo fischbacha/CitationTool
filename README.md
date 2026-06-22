@@ -12,15 +12,59 @@ The primary workflow is Microsoft Word plus the Zotero Word plugin. LibreOffice 
 
 CitationTool is designed to be used from an LLM coding harness. The harness writes or edits the introduction, builds a CitationTool JSON project spec, verifies references, and generates a Word file with Zotero-active citations and bibliography fields.
 
+Start by telling your agent:
+
+```text
+Install and use the CitationTool skill from https://github.com/fischbacha/CitationTool.
+I want a Zotero-active Word draft with verified references.
+Use metadata-only checking unless I ask for high-depth source review.
+```
+
+### Dependencies
+
+Required for local generation:
+
+- Python 3.10 or newer.
+- `python-docx` for creating `.docx` files:
+
+```bash
+python3 -m pip install -r requirements.txt
+```
+
+Required for live Zotero/Word use:
+
+- Zotero Desktop, running locally.
+- Microsoft Word with the Zotero Word plugin installed.
+- Internet access for PubMed/Crossref metadata and abstract checks.
+
+Optional:
+
+- LibreOffice with the Zotero LibreOffice plugin, if you prefer LibreOffice or want LibreOffice-based rendering/export.
+- macOS Quick Look or LibreOffice for `--render auto` visual QA.
+- `CITATIONTOOL_CONTACT_EMAIL`, recommended for polite PubMed/Crossref API use:
+
+```bash
+export CITATIONTOOL_CONTACT_EMAIL="you@example.com"
+```
+
+You can still generate offline placeholder/active `.docx`, RIS, and CSL JSON files without Zotero by using `--no-zotero-import`. To edit citations and refresh the bibliography in Word, use Zotero Desktop plus the Zotero Word plugin.
+
 ### Codex
 
-Install the Codex skill from this repository:
+If you are using Codex yourself, install the skill from this repository:
 
 ```bash
 git clone https://github.com/fischbacha/CitationTool.git
 cd CitationTool
+python3 -m pip install -r requirements.txt
 mkdir -p ~/.codex/skills/citationtool
 cp -R harnesses/codex/citationtool/. ~/.codex/skills/citationtool/
+```
+
+Or ask Codex:
+
+```text
+Clone https://github.com/fischbacha/CitationTool, install its Python requirements, and install the Codex skill from harnesses/codex/citationtool into ~/.codex/skills/citationtool.
 ```
 
 Then start a new Codex session in the CitationTool repo and ask:
