@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/citationtool-logo.png" alt="CitationTool logo" width="620">
+</p>
+
 # CitationTool
 
 Prototype for generating Zotero-active Word drafts with verified references and claim-support reports.
