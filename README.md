@@ -8,7 +8,83 @@ Prototype for generating Zotero-active Word drafts with verified references and 
 
 The primary workflow is Microsoft Word plus the Zotero Word plugin. LibreOffice is kept as an optional compatibility path for users who have LibreOffice and Zotero's LibreOffice plugin, and as an optional renderer/exporter for visual QA.
 
-## Recommended command
+## Agent / Harness Quick Start
+
+CitationTool is designed to be used from an LLM coding harness. The harness writes or edits the introduction, builds a CitationTool JSON project spec, verifies references, and generates a Word file with Zotero-active citations and bibliography fields.
+
+### Codex
+
+Install the Codex skill from this repository:
+
+```bash
+git clone https://github.com/fischbacha/CitationTool.git
+cd CitationTool
+mkdir -p ~/.codex/skills/citationtool
+cp -R harnesses/codex/citationtool/. ~/.codex/skills/citationtool/
+```
+
+Then start a new Codex session in the CitationTool repo and ask:
+
+```text
+Use $citationtool to draft a 900-word introduction on B cells in NASH.
+Use high-depth reference checking and apply-review for weak claims.
+Prefer review articles plus primary human studies where possible.
+Generate a Zotero-active Word file.
+```
+
+For a faster metadata-only run:
+
+```text
+Use $citationtool to draft a short introduction on immunoglobulins in fibrosis.
+Verify DOI/PMID metadata only.
+Generate the Zotero-active Word file and claim-support report.
+```
+
+### OpenCode
+
+OpenCode can use the project-local skill directly from this repo:
+
+```text
+.opencode/skills/citationtool/SKILL.md
+```
+
+From the repo root, ask:
+
+```text
+Use the citationtool skill to draft a 900-word introduction on aging and immunoglobulins with high-depth source checking.
+```
+
+Or use the included command:
+
+```text
+/citationtool Draft a short introduction on B cells in NASH with abstract-level support checking and apply-review.
+```
+
+### Claude Code
+
+Use the adapter prompt in:
+
+```text
+harnesses/claude-code/citationtool.md
+```
+
+A suitable request is:
+
+```text
+Follow harnesses/claude-code/citationtool.md and generate a Zotero-active Word draft on B cells in NASH.
+Use abstract-depth source checking and report unsupported or not-assessable claims.
+```
+
+### Source-Review Options
+
+- **Metadata only**: checks that DOI/PMID metadata resolves and matches the project spec. This is faster and useful for early drafts.
+- **High-depth / abstract-level review**: fetches abstracts, labels claim support as `supported`, `partially_supported`, `unsupported`, or `not_assessable`, and writes `abstract_support_review.md`.
+- **Apply-review**: creates a separate reviewed spec and rebuilt draft from safer wording candidates, while leaving `not_assessable` claims flagged for human or full-text review.
+- **Live Word/Zotero handoff**: imports references into Zotero and asks the Zotero Word integration to refresh the active Word draft when Zotero and Word are available.
+
+Typical outputs are a Zotero-active `.docx`, RIS and CSL JSON reference files, `claim_support_report.md`, `reference_verification.json`, `verification_report.md`, and, for high-depth runs, `abstract_support_review.md` plus `apply_review_report.md` when rewrites are applied.
+
+## Manual CLI Commands
 
 ```bash
 python3 -m citationtool.cli run examples/immunoglobulins_fibrosis_demo.json --verify metadata --refresh-word
