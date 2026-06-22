@@ -87,3 +87,7 @@ The reusable CLI is the path to use for new topics.
 - `harnesses/claude-code/citationtool.md`: Claude Code adapter prompt.
 - `harnesses/opencode/citationtool.md`: OpenCode adapter notes.
 - `examples/project_spec_template.json`: copyable starter spec for new topics.
+
+## License
+
+CitationTool is released under the Apache License 2.0. See `LICENSE`.
